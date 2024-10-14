@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
 import { routes } from '@/constants';
 import { useEmployeeContext } from 'src/contexts';
@@ -16,7 +16,7 @@ function NavigateToSignIn() {
 export function Router() {
   // employeeContext
   const { employee, isManager } = useEmployeeContext();
-  const isSignedIn = !!employee;
+  const isSignedIn = !!employee._id;
 
   // routes
   const routesObject: RouteObject[] = [

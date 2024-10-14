@@ -4,7 +4,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import { EMPLOYEE_API_URI, useAxios } from 'src/hooks';
 
 interface IEmployeeContext {
-  employee: IEmployee | undefined;
+  employee: IEmployee;
   setEmployee: (employee: IEmployee) => void;
   employeesHashTable: IEmployeesHashTable | undefined;
   status: number;
@@ -29,9 +29,16 @@ interface IEmployeeProviderProps {
 
 export function EmployeeProvider({ children }: IEmployeeProviderProps) {
   // currentUser
-  const [employeeStorageSt, setEmployeeStorageSt] = useLocalStorage<IEmployee | undefined>(
-    'employee'
-  );
+  const [employeeStorageSt, setEmployeeStorageSt] = useLocalStorage<IEmployee>('employee', {
+    _id: '',
+    firstname: '',
+    lastname: '',
+    nickname: '',
+    position: 'Installer',
+    branch: '',
+    crew: '',
+    employeeId: ''
+  });
 
   const setEmployee = (newEmployee: IEmployee) => {
     setEmployeeStorageSt(newEmployee);
@@ -60,7 +67,7 @@ export function EmployeeProvider({ children }: IEmployeeProviderProps) {
         setEmployee,
         employeesHashTable: fetchedEmployeesHashTableSt,
         status,
-        isManager: employeeStorageSt?.position === 'Manager'
+        isManager: employeeStorageSt.position === 'Manager'
       }}
     >
       {children}

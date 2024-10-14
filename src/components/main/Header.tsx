@@ -8,7 +8,7 @@ import { routes } from '@/constants';
 export function Header() {
   // employeeContext
   const { employee } = useEmployeeContext();
-  const isSignedIn = !!employee;
+  const isSignedIn = !!employee._id;
 
   // colorContext
   const { isLight } = useThemeContext();
