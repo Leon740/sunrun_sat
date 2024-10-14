@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext } from 'react';
-import { ITheme, useTheme } from '../hooks/useTheme';
+import { ITheme, useTheme } from '@/hooks';
 
 const ThemeContext = createContext<ITheme | undefined>(undefined);
 

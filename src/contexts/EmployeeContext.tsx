@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { IEmployee, IEmployeesHashTable } from '../types/Employee';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { EMPLOYEE_API_URI, useAxios } from 'src/hooks';
+import { IEmployee, IEmployeesHashTable } from '@/types';
+import { useLocalStorage, EMPLOYEE_API_URI, useAxios } from '@/hooks';
 
 interface IEmployeeContext {
   employee: IEmployee;

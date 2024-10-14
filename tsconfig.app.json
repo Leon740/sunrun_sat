@@ -15,9 +15,8 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/assets": ["src/assets/"],
       "@/components": ["src/components/"],
-      "@/components/main": ["src/components/main"],
+      "@/components/main": ["src/components/main/"],
       "@/constants": ["src/constants/"],
       "@/contexts": ["src/contexts/"],
       "@/hooks": ["src/hooks/"],
@@ -30,5 +29,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

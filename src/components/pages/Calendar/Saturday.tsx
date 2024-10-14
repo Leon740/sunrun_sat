@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Label } from '@/components';
 import { SATURDAY_API_URI, useAxios } from 'src/hooks';
-import { IEmployee, ISaturday, TEmployeePosition } from 'src/types';
-import { useEmployeeContext } from 'src/contexts';
+import { IEmployee, IEmployeesHashTable, ISaturday, TEmployeePosition } from 'src/types';
 import { POSITIONS } from '@/constants';
 import { RadioGroup, TRadio } from './RadioGroup';
 
-export function Saturday({ _id: saturdayId, name, employees }: ISaturday) {
-  // employeeContext
-  const {
-    employee: activeEmployee,
-    employeesHashTable: { allEmployees },
-    isManager
-  } = useEmployeeContext();
+interface ISaturdayProps extends ISaturday {
+  activeEmployee: IEmployee;
+  allEmployees: IEmployeesHashTable['allEmployees'];
+  isManager: boolean;
+}
 
+export function Saturday({
+  _id: saturdayId,
+  name,
+  employees,
+  activeEmployee,
+  allEmployees,
+  isManager
+}: ISaturdayProps) {
   // RadioGroupOnChange
   const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(employees));
 

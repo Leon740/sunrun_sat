@@ -1,24 +1,42 @@
 import { Status } from '@/components';
 import { useEffect, useState } from 'react';
 import { SATURDAY_API_URI, useAxios } from 'src/hooks';
-import { ISaturdayHashTable } from 'src/types';
+import { IEmployee, IEmployeesHashTable, ISaturdayHashTable } from 'src/types';
 import { Saturday } from './Saturday';
+import { useEmployeeContext } from 'src/contexts';
 
 interface ISaturdaysProps {
   saturdaysHashTable: ISaturdayHashTable;
+  activeEmployee: IEmployee;
+  employeesHashTable: IEmployeesHashTable;
+  isManager: boolean;
 }
 
-function Saturdays({ saturdaysHashTable }: ISaturdaysProps) {
+function Saturdays({
+  saturdaysHashTable,
+  activeEmployee,
+  employeesHashTable,
+  isManager
+}: ISaturdaysProps) {
   return (
     <div className="grow flex flex-col gap-32">
       {Object.entries(saturdaysHashTable).map(([_id, { name, employees }]) => (
-        <Saturday key={`${name}_${_id}_Saturday`} _id={_id} name={name} employees={employees} />
+        <Saturday
+          key={`${name}_${_id}_Saturday`}
+          _id={_id}
+          name={name}
+          employees={employees}
+          activeEmployee={activeEmployee}
+          allEmployees={employeesHashTable.allEmployees}
+          isManager={isManager}
+        />
       ))}
     </div>
   );
 }
 
 export default function Calendar() {
+  // getAllSaturdays
   const [saturdayHashTablesSt, setSaturdaysHashTableSt] = useState<ISaturdayHashTable>({});
 
   const { status, triggerRequest: getAllSaturdays } = useAxios<ISaturdayHashTable>({
@@ -33,8 +51,16 @@ export default function Calendar() {
     getAllSaturdays();
   }, []);
 
-  return saturdayHashTablesSt ? (
-    <Saturdays saturdaysHashTable={saturdayHashTablesSt} />
+  // employeeContext
+  const { employee: activeEmployee, employeesHashTable, isManager } = useEmployeeContext();
+
+  return saturdayHashTablesSt && employeesHashTable ? (
+    <Saturdays
+      saturdaysHashTable={saturdayHashTablesSt}
+      activeEmployee={activeEmployee}
+      employeesHashTable={employeesHashTable}
+      isManager={isManager}
+    />
   ) : (
     <Status status={status} errorMessage="Error fetching Saturdays." />
   );

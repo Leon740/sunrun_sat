@@ -1,4 +1,4 @@
-import { IEmployee } from './Employee';
+import { IEmployee } from '@/types';
 
 export interface ISaturday {
   _id: string;

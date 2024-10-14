@@ -1,4 +1,4 @@
-import { TEmployeePosition } from '../types/Employee';
+import { TEmployeePosition } from '@/types';
 
 export interface IPosition {
   title: TEmployeePosition;

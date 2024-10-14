@@ -1,5 +1,5 @@
-import bgLight from '@/assets/images/bg/bg_light.jpg';
-import bgDark from '@/assets/images/bg/bg_dark.jpg';
+import bgLight from 'src/assets/images/bg/bg_light.jpg';
+import bgDark from 'src/assets/images/bg/bg_dark.jpg';
 import { useThemeContext } from '@/contexts';
 import { Img } from '@/components';
 
