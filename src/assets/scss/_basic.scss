@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font_roobert_regular;
+  font-size: $size_16;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a,
+button {
+  cursor: pointer;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+label {
+  cursor: pointer;
+  user-select: none;
+}
+
+input {
+  outline: none;
+  background: none;
+  transition: all ease-in-out 0.3s;
+}
+
+img {
+  vertical-align: middle;
+  width: 100%;
+  height: auto;
+}
+
+::-webkit-scrollbar {
+  width: $size_8;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: $size_4;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: $dark_navy;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $light_navy;
+  }
+}
+@media (prefers-color-scheme: light) {
+  ::-webkit-scrollbar-track {
+    background: $light_navy;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $dark_navy;
+  }
+}
