@@ -8,7 +8,7 @@ module.exports = {
     fontFamily: {
       roobert_regular: 'Roobert_Regular',
       roobert_medium: 'Roobert_Medium',
-      roobert_semibold: 'Roobert_Semibold',
+      roobert_semibold: 'Roobert_SemiBold',
       roobert_bold: 'Roobert_Bold'
     },
     fontSize: {

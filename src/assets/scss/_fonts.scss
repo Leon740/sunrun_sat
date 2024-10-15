@@ -46,11 +46,9 @@
   src: url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.eot');
   src: url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.eot?#iefix')
       format('embedded-opentype'),
-    url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.woff2')
-      format('woff2'),
+    url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.woff2') format('woff2'),
     url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.woff') format('woff'),
-    url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.ttf')
-      format('truetype'),
+    url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.ttf') format('truetype'),
     url('../fonts/#{$font_roobert_bold}/#{$font_roobert_bold}.svg##{$font_roobert_bold}')
       format('svg');
   font-weight: 800;
