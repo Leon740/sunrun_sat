@@ -104,7 +104,6 @@ export function Select({
   const selectRef = useRef<HTMLDivElement>(null);
 
   const handleSelectOnFocus = () => {
-    console.log('focus');
     alert('focus');
     selectRef.current?.classList.replace('max-h-full', activeMaxHeightClassName);
     if (optionsLength > 5) {
@@ -153,11 +152,11 @@ export function Select({
             <Button
               type="button"
               ariaLabel="Toggle Select"
-              handleOnFocus={() => {
+              handleOnClick={() => {
                 handleSelectOnFocus();
-                alert('button');
               }}
-              handleOnBlur={handleSelectOnBlur}
+              // handleOnFocus={handleSelectOnFocus}
+              // handleOnBlur={handleSelectOnBlur}
               className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
             >
               <Icon icon="arrow" />
