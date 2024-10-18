@@ -141,8 +141,8 @@ export function Select({
           <SelectOption
             key={`SelectOption_${activeOptionSt.value}`}
             option={activeOptionSt}
-            // handleOnFocus={() => isEditable && handleSelectOnFocus()}
-            // handleOnBlur={() => isEditable && handleSelectOnBlur()}
+            handleOnFocus={() => isEditable && handleSelectOnFocus()}
+            handleOnBlur={() => isEditable && handleSelectOnBlur()}
           >
             {renderActiveOption(activeOptionSt)}
           </SelectOption>
@@ -151,14 +151,11 @@ export function Select({
             <Button
               type="button"
               ariaLabel="Toggle Select"
-              handleOnClick={(event) => {
-                // handleSelectOnFocus();
-                console.log(event?.target);
-              }}
-              handleOnFocus={() => {
-                console.log('handleOnFocus');
-                handleSelectOnFocus();
-              }}
+              // handleOnClick={(event) => {
+              //   handleSelectOnFocus();
+              //   console.log(event?.target);
+              // }}
+              handleOnFocus={handleSelectOnFocus}
               handleOnBlur={handleSelectOnBlur}
               className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
             >
