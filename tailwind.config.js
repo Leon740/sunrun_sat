@@ -15,6 +15,7 @@ module.exports = {
       16: '16px',
       20: '20px',
       24: '24px',
+      48: '48px',
       64: '64px'
     },
     colors: {

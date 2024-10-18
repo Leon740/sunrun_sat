@@ -153,10 +153,10 @@ export function Select({
               type="button"
               ariaLabel="Toggle Select"
               handleOnClick={() => {
-                handleSelectOnFocus();
+                // handleSelectOnFocus();
               }}
-              // handleOnFocus={handleSelectOnFocus}
-              // handleOnBlur={handleSelectOnBlur}
+              handleOnFocus={handleSelectOnFocus}
+              handleOnBlur={handleSelectOnBlur}
               className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
             >
               <Icon icon="arrow" />
