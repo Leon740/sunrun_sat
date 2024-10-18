@@ -1,1 +1,5 @@
-@import 'normalize', 'variables', 'basic', 'fonts', 'icons', 'tailwind';
+@use 'normalize';
+@use 'basic';
+@use 'fonts';
+@use 'icons';
+@use 'tailwind';

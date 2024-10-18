@@ -1,3 +1,7 @@
+@use 'fonts';
+@use 'sizes';
+@use 'colors';
+
 * {
   box-sizing: border-box;
 
@@ -12,8 +16,8 @@ html {
 }
 
 body {
-  font-family: $font_roobert_regular;
-  font-size: $size_16;
+  font-family: fonts.$font_roobert_regular;
+  font-size: sizes.$size_16;
 }
 
 h1,
@@ -74,28 +78,28 @@ img {
 }
 
 ::-webkit-scrollbar {
-  width: $size_8;
+  width: sizes.$size_8;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: $size_4;
+  border-radius: sizes.$size_4;
 }
 
 @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-track {
-    background: $dark_navy;
+    background: colors.$dark_navy;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: $light_navy;
+    background-color: colors.$light_navy;
   }
 }
 @media (prefers-color-scheme: light) {
   ::-webkit-scrollbar-track {
-    background: $light_navy;
+    background: colors.$light_navy;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: $dark_navy;
+    background-color: colors.$dark_navy;
   }
 }
