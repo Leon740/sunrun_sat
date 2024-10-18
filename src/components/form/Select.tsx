@@ -54,7 +54,7 @@ export function SelectOption({
       handleOnClick={handleOnClick}
       handleOnFocus={handleOnFocus}
       handleOnBlur={handleOnBlur}
-      className="w-full"
+      className="w-full border-2 border-solid focus:border-red"
     >
       {children}
     </Button>
@@ -103,6 +103,7 @@ export function Select({
   const selectRef = useRef<HTMLDivElement>(null);
 
   const handleSelectOnFocus = () => {
+    console.log('focus');
     selectRef.current?.classList.replace('max-h-full', activeMaxHeightClassName);
     if (optionsLength > 5) {
       selectRef.current?.classList.replace('overflow-hidden', 'overflow-auto');
@@ -111,6 +112,7 @@ export function Select({
     selectRef.current?.classList.add('border-light_navy');
   };
   const handleSelectOnBlur = () => {
+    console.log('blur');
     setTimeout(() => {
       selectRef.current?.classList.replace(activeMaxHeightClassName, 'max-h-full');
       if (optionsLength > 5) {
@@ -151,7 +153,7 @@ export function Select({
               ariaLabel="Toggle Select"
               handleOnFocus={handleSelectOnFocus}
               handleOnBlur={handleSelectOnBlur}
-              className="cursor-pointer absolute z-20 top-[12px] right-16"
+              className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
             >
               <Icon icon="arrow" />
             </Button>
