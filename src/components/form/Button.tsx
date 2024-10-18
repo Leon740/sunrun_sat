@@ -36,7 +36,6 @@ export function Button({
       onFocus={handleOnFocus}
       onBlur={handleOnBlur}
       className={`flex ${className}`}
-      tabIndex={0}
     >
       {children}
     </button>
