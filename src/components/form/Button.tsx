@@ -23,7 +23,6 @@ export function Button({
 }: IButtonProps) {
   const handleButtonOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log(event.target);
     handleOnClick();
   };
 
@@ -36,6 +35,7 @@ export function Button({
       onFocus={handleOnFocus}
       onBlur={handleOnBlur}
       className={`flex ${className}`}
+      tabIndex={0}
     >
       {children}
     </button>

@@ -45,8 +45,7 @@ export function SelectOption({
   const { setActiveOption } = useContext(SelectContext);
 
   const handleOnClick = () => {
-    console.log(setActiveOption);
-    // setActiveOption(option);
+    setActiveOption(option);
   };
 
   return (
@@ -134,7 +133,6 @@ export function Select({
       <div className="relative h-[44px]">
         <div
           ref={selectRef}
-          tabIndex={0}
           className="w-full absolute top-0 left-0
         rounded-8 border-2 border-transparent ease-in-out duration-300 max-h-full overflow-hidden"
         >
@@ -151,10 +149,6 @@ export function Select({
             <Button
               type="button"
               ariaLabel="Toggle Select"
-              // handleOnClick={(event) => {
-              //   handleSelectOnFocus();
-              //   console.log(event?.target);
-              // }}
               handleOnFocus={handleSelectOnFocus}
               handleOnBlur={handleSelectOnBlur}
               className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
