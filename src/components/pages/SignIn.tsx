@@ -33,7 +33,7 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (employee) {
+    if (employee._id) {
       navigate(ROUTES.profile);
     }
   }, [employee]);
