@@ -4,12 +4,37 @@ import { useNavigate } from 'react-router-dom';
 import { IPosition, ROUTES } from '@/constants';
 import { IEmployee } from 'src/types';
 
+interface IEmployeeButtonProps {
+  _id: IEmployee['_id'];
+  label: IEmployee['nickname'];
+  color: IPosition['color'];
+}
+
+export function EmployeeButton({ _id, label, color }: IEmployeeButtonProps) {
+  const navigate = useNavigate();
+
+  const handleDefaultButtonOnClick = () => {
+    navigate(`${ROUTES.employee}/${_id}`);
+  };
+
+  return (
+    <Button
+      type="button"
+      ariaLabel={`Navigate to ${label}`}
+      handleOnClick={handleDefaultButtonOnClick}
+      className="w-full"
+    >
+      <SelectInnerOption label={label} className={`rounded-8 ${color}`} />
+    </Button>
+  );
+}
+
 interface ISelectInnerOptionProps {
   label: string;
   className: string;
 }
 
-export function SelectInnerOption({ label, className }: ISelectInnerOptionProps) {
+function SelectInnerOption({ label, className }: ISelectInnerOptionProps) {
   return (
     <div
       className={`cursor-pointer w-full text-16 text-dark_navy font-roobert_regular text-left py-8 px-16 border-light_navy ease-in-out duration-300 ${className}`}
@@ -73,13 +98,6 @@ export function EmployeePositionSelect({
     }
   }, [activeOptionSt]);
 
-  // router
-  const navigate = useNavigate();
-
-  const defaultButtonOnClick = () => {
-    navigate(`${ROUTES.employee}/${defaultOption.value}`);
-  };
-
   return (
     <div className="basis-128">
       {isEditable ? (
@@ -104,14 +122,7 @@ export function EmployeePositionSelect({
           activeMaxHeightClassName="max-h-[256px]"
         />
       ) : (
-        <Button
-          type="button"
-          ariaLabel={`Navigate to ${defaultOption.label}`}
-          handleOnClick={defaultButtonOnClick}
-          className="w-full"
-        >
-          <SelectInnerOption label={defaultOption.label} className={`rounded-8 ${color}`} />
-        </Button>
+        <EmployeeButton _id={defaultOption.value} label={defaultOption.label} color={color} />
       )}
     </div>
   );

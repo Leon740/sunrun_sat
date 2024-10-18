@@ -3,7 +3,7 @@ import { Group, Status, FormButton } from '@/components/form';
 import { POSITIONS, ROUTES, APIS } from '@/constants';
 import { IEmployee, IEmployeesHashTable, TEmployeePosition } from 'src/types';
 import { useAxios } from 'src/hooks';
-import { EmployeePositionSelect, SelectInnerOption } from './EmployeePositionSelect';
+import { EmployeeButton, EmployeePositionSelect } from './EmployeePositionSelect';
 import { useEmployeeContext } from 'src/contexts';
 import { useNavigate } from 'react-router-dom';
 
@@ -246,7 +246,7 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
         <Group
           key={`${crew}_Crew`}
           name={crew}
-          // unassignedCrew should not get in crewsSt onChange
+          // unassignedCrew should not get into crewsSt onChange
           isEditable={isEditInProgress && crew !== unassignedCrew}
           handleOnChange={(crewName) => handleCrewsOnChange(_id, crewName)}
           handleOnSave={(crewName) => handleCrewsOnSave(_id, crewName)}
@@ -280,11 +280,16 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
                   className="flex flex-row flex-wrap gap-16"
                 >
                   {unassignedEmployeesByPosition.map((employee) => (
-                    <SelectInnerOption
-                      key={`${unassignedCrew}_Crew_${position.title}_List_${employee._id}_SelectInnerOption`}
-                      label={employee.nickname}
-                      className={`basis-128 rounded-8 ${position.color}`}
-                    />
+                    <div
+                      key={`${unassignedCrew}_Crew_${position.title}_List_${employee._id}_Item`}
+                      className="basis-128"
+                    >
+                      <EmployeeButton
+                        _id={employee._id}
+                        label={employee.nickname}
+                        color={position.color}
+                      />
+                    </div>
                   ))}
                 </div>
               )
