@@ -6,7 +6,7 @@ interface IButtonProps {
   ariaLabel: string;
   disabled?: boolean;
   className?: string;
-  handleOnClick?: () => void;
+  handleOnClick?: (event?: MouseEvent) => void;
   handleOnFocus?: () => void;
   handleOnBlur?: () => void;
 }
@@ -36,6 +36,7 @@ export function Button({
       onFocus={handleOnFocus}
       onBlur={handleOnBlur}
       className={`flex ${className}`}
+      tabIndex={0}
     >
       {children}
     </button>

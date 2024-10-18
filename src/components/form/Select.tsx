@@ -45,7 +45,8 @@ export function SelectOption({
   const { setActiveOption } = useContext(SelectContext);
 
   const handleOnClick = () => {
-    setActiveOption(option);
+    console.log(setActiveOption);
+    // setActiveOption(option);
   };
 
   return (
@@ -150,10 +151,14 @@ export function Select({
             <Button
               type="button"
               ariaLabel="Toggle Select"
-              handleOnClick={() => {
+              handleOnClick={(event) => {
+                // handleSelectOnFocus();
+                console.log(event?.target);
+              }}
+              handleOnFocus={() => {
+                console.log('handleOnFocus');
                 handleSelectOnFocus();
               }}
-              handleOnFocus={handleSelectOnFocus}
               handleOnBlur={handleSelectOnBlur}
               className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
             >
