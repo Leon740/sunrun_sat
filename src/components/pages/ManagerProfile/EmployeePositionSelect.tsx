@@ -1,4 +1,4 @@
-import { Button, Select, SelectOption, TOption } from '@/components';
+import { Button, Select, SelectOption, TOption } from '@/components/form';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IPosition, ROUTES } from '@/constants';

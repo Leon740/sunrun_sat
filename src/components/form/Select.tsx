@@ -8,7 +8,8 @@ import {
   useRef,
   useState
 } from 'react';
-import { Button, Icon } from '@/components';
+import { Icon } from '@/components/general';
+import { Button } from './Button';
 
 export interface TOption {
   label: string;

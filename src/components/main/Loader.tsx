@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { Fallback } from '@/components/main';
+import { Fallback } from 'src/components/main/indexOLD';
 
 interface ILoaderProps {
   children: ReactNode;

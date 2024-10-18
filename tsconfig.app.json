@@ -17,6 +17,8 @@
     "paths": {
       "@/components": ["src/components/"],
       "@/components/main": ["src/components/main/"],
+      "@/components/general": ["src/components/general/"],
+      "@/components/form": ["src/components/form/"],
       "@/constants": ["src/constants/"],
       "@/contexts": ["src/contexts/"],
       "@/hooks": ["src/hooks/"],

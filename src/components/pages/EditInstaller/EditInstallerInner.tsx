@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { IEmployee, TEmployeePosition } from '@/types';
 import { APIS } from '@/constants';
 import { useAxios } from '@/hooks';
+import { Avatar } from '@/components/general';
 import {
-  Avatar,
   Input,
   Group,
   PositionSelect,
@@ -11,7 +11,7 @@ import {
   Status,
   FormButton,
   TOption
-} from '@/components';
+} from '@/components/form';
 
 interface IEditInstallerInnerProps {
   employee: IEmployee;

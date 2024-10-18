@@ -3,7 +3,8 @@ import { IEmployee } from '@/types';
 import { APIS } from '@/constants';
 import { useAxios } from '@/hooks';
 import { useEmployeeContext } from '@/contexts';
-import { Avatar, Input, Group, PositionSelect, CrewSelect, Status, FormButton } from '@/components';
+import { Avatar } from '@/components/general';
+import { Input, Group, PositionSelect, CrewSelect, Status, FormButton } from '@/components/form';
 
 export default function InstallerProfile() {
   // employeeContext

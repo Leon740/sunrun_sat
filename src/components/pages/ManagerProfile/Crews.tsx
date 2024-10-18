@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Group, Status, FormButton } from '@/components';
+import { Group, Status, FormButton } from '@/components/form';
 import { POSITIONS, ROUTES, APIS } from '@/constants';
 import { IEmployee, IEmployeesHashTable, TEmployeePosition } from 'src/types';
 import { useAxios } from 'src/hooks';

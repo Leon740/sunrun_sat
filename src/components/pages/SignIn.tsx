@@ -3,7 +3,7 @@ import { IEmployee } from '@/types';
 import { useEmployeeContext } from '@/contexts';
 import { APIS } from '@/constants';
 import { useAxios } from '@/hooks';
-import { Input, Group, Status, FormButton } from '@/components';
+import { Input, Group, Status, FormButton } from '@/components/form';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 

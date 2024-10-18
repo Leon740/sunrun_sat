@@ -1,5 +1,6 @@
 import { useEmployeeContext } from '@/contexts';
-import { Avatar, Input, Group } from '@/components';
+import { Avatar } from '@/components/general';
+import { Input, Group } from '@/components/form';
 import { Crews } from './Crews';
 
 export default function ManagerProfile() {

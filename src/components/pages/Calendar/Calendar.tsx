@@ -1,4 +1,4 @@
-import { Status } from '@/components';
+import { Status } from '@/components/form';
 import { useEffect, useState } from 'react';
 import { APIS } from '@/constants';
 import { useAxios } from 'src/hooks';

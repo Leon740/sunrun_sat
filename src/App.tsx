@@ -2,20 +2,19 @@ import { StrictMode } from 'react';
 import { ThemeProvider, EmployeeProvider } from '@/contexts';
 import { BrowserRouter } from 'react-router-dom';
 import {
-  Loader,
   ErrorBoundary,
-  ErrorBoundaryFallback,
+  Loader,
   Router,
   Background,
   Header,
   Footer
-} from '@/components/main';
+} from 'src/components/main/index';
 import './App.css';
 
 function App() {
   return (
     <StrictMode>
-      <ErrorBoundary fallback={ErrorBoundaryFallback}>
+      <ErrorBoundary>
         <Loader>
           <ThemeProvider>
             <EmployeeProvider>

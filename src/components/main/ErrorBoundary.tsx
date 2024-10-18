@@ -1,16 +1,15 @@
-import React, { FC, ReactElement, ErrorInfo } from 'react';
-import { Fallback } from '@/components/main';
+import React, { ReactElement, ErrorInfo } from 'react';
+import { Fallback } from './Fallback';
 
 interface ErrorBoundaryPropsI {
   children: ReactElement;
-  fallback: FC<{ errorMsg: string }>;
 }
 
 interface ErrorBoundaryStateI {
   errorMsg: string;
 }
 
-export function ErrorBoundaryFallback({ errorMsg }: ErrorBoundaryStateI) {
+function ErrorBoundaryFallback({ errorMsg }: ErrorBoundaryStateI) {
   console.error(errorMsg);
   return <Fallback gradient="from-light_navy to-white" textColor="text-white" textLabel="Error" />;
 }
@@ -33,14 +32,10 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryPropsI, ErrorBou
 
   render() {
     const { errorMsg } = this.state;
-    const { fallback: Fallback, children } = this.props;
+    const { children } = this.props;
 
     if (errorMsg) {
-      if (Fallback) {
-        return <Fallback errorMsg={errorMsg} />;
-      }
-
-      return errorMsg;
+      <ErrorBoundaryFallback errorMsg={errorMsg} />;
     }
 
     return children;

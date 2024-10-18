@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Label } from '@/components';
+import { Label } from '@/components/form';
 import { APIS } from '@/constants';
 import { useAxios } from 'src/hooks';
 import { IEmployee, IEmployeesHashTable, ISaturday, TEmployeePosition } from 'src/types';

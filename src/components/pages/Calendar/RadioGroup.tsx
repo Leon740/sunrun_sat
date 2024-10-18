@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Radio } from '@/components';
+import { Radio } from '@/components/form';
 
 export type TRadio = 'Yes' | 'No';
 

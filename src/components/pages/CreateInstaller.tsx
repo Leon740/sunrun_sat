@@ -3,8 +3,8 @@ import { IEmployee, TEmployeePosition } from '@/types';
 import { useEmployeeContext } from '@/contexts';
 import { APIS } from '@/constants';
 import { useAxios } from '@/hooks';
+import { Avatar } from '@/components/general';
 import {
-  Avatar,
   Input,
   Group,
   PositionSelect,
@@ -12,7 +12,7 @@ import {
   Status,
   FormButton,
   TOption
-} from '@/components';
+} from '@/components/form';
 
 export default function CreateInstaller() {
   // managerContext
