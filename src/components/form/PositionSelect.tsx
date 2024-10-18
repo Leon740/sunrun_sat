@@ -1,5 +1,5 @@
 import { POSITIONS, POSITIONS_OBJECT } from '@/constants';
-import { Select, SelectOption, TOption } from '@/components';
+import { Select, SelectOption, TOption } from './Select';
 import { TEmployeePosition } from 'src/types';
 
 interface ISelectInnerOptionProps {

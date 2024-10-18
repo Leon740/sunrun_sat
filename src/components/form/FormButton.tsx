@@ -1,4 +1,5 @@
-import { Button, Icon, TIcons } from '@/components';
+import { Button } from './Button';
+import { Icon, TIcons } from '@/components/general';
 
 interface IFormButtonProps {
   type: 'button' | 'submit' | 'reset' | undefined;

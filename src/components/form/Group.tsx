@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Label } from '@/components';
+import { Label } from './Label';
 
 interface IGroupProps {
   children: ReactNode;

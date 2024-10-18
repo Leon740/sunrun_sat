@@ -1,5 +1,5 @@
 import { useThemeContext } from '@/contexts';
-import { Input } from '@/components';
+import { Input } from './Input';
 
 interface ILabelProps {
   name: string;

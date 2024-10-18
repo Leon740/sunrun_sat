@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
-import { Button, Icon } from '@/components';
+import { Button } from './Button';
+import { Icon } from '@/components/general';
 
 interface IInputProps {
   id: string;

@@ -1,7 +1,7 @@
 import bgLight from 'src/assets/images/bg/bg_light.jpg';
 import bgDark from 'src/assets/images/bg/bg_dark.jpg';
 import { useThemeContext } from '@/contexts';
-import { Img } from '@/components';
+import { Img } from '@/components/general';
 
 export function Background() {
   const { isLight } = useThemeContext();

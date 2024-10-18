@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input } from '@/components';
+import { Input } from '@/components/form';
 import { useThemeContext } from '@/contexts';
 
 interface IName {

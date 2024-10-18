@@ -1,5 +1,6 @@
 import { IEmployeesHashTable } from '@/types';
-import { Select, SelectOption, Status, TOption } from '@/components';
+import { Select, SelectOption, TOption } from './Select';
+import { Status } from './Status';
 import { useEmployeeContext } from 'src/contexts';
 
 interface ISelectInnerOptionProps {

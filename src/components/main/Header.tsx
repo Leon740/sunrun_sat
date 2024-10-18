@@ -1,6 +1,6 @@
 import logoLight from 'src/assets/images/logo/logo_light.svg';
 import logoDark from 'src/assets/images/logo/logo_dark.svg';
-import { Icon, Img } from '@/components';
+import { Icon, Img } from '@/components/general';
 import { useEmployeeContext, useThemeContext } from '@/contexts';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '@/constants';
