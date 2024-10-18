@@ -104,7 +104,6 @@ export function Select({
   const selectRef = useRef<HTMLDivElement>(null);
 
   const handleSelectOnFocus = () => {
-    alert('focus');
     selectRef.current?.classList.replace('max-h-full', activeMaxHeightClassName);
     if (optionsLength > 5) {
       selectRef.current?.classList.replace('overflow-hidden', 'overflow-auto');
@@ -113,7 +112,6 @@ export function Select({
     selectRef.current?.classList.add('border-light_navy');
   };
   const handleSelectOnBlur = () => {
-    console.log('blur');
     setTimeout(() => {
       selectRef.current?.classList.replace(activeMaxHeightClassName, 'max-h-full');
       if (optionsLength > 5) {
@@ -142,8 +140,8 @@ export function Select({
           <SelectOption
             key={`SelectOption_${activeOptionSt.value}`}
             option={activeOptionSt}
-            handleOnFocus={() => isEditable && handleSelectOnFocus()}
-            handleOnBlur={() => isEditable && handleSelectOnBlur()}
+            // handleOnFocus={() => isEditable && handleSelectOnFocus()}
+            // handleOnBlur={() => isEditable && handleSelectOnBlur()}
           >
             {renderActiveOption(activeOptionSt)}
           </SelectOption>
@@ -153,7 +151,7 @@ export function Select({
               type="button"
               ariaLabel="Toggle Select"
               handleOnClick={() => {
-                // handleSelectOnFocus();
+                handleSelectOnFocus();
               }}
               handleOnFocus={handleSelectOnFocus}
               handleOnBlur={handleSelectOnBlur}

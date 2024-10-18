@@ -23,7 +23,7 @@ export function Button({
 }: IButtonProps) {
   const handleButtonOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log(event);
+    console.log(event.target);
     handleOnClick();
   };
 
