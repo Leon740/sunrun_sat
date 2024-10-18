@@ -6,9 +6,14 @@ export type TRadio = 'Yes' | 'No';
 interface IRadioGroupProps {
   radioGroupValue: TRadio;
   radioGroupOnChange: (value: TRadio) => void;
+  disabled: boolean;
 }
 
-export function RadioGroup({ radioGroupValue, radioGroupOnChange }: IRadioGroupProps) {
+export function RadioGroup({
+  radioGroupValue,
+  radioGroupOnChange,
+  disabled = false
+}: IRadioGroupProps) {
   // onChange
   const [activeRadioSt, setActiveRadioSt] = useState<TRadio>(radioGroupValue);
 
@@ -23,14 +28,27 @@ export function RadioGroup({ radioGroupValue, radioGroupOnChange }: IRadioGroupP
   return (
     <div className="w-full flex flex-col gap-16">
       <div className="flex flex-row justify-center gap-64">
-        <Radio name="Yes" color="yellow" onChange={radioOnChange} isChecked={isYes} />
+        <Radio
+          name="Yes"
+          color="yellow"
+          onChange={radioOnChange}
+          isChecked={isYes}
+          disabled={disabled}
+        />
         <Radio
           name="No"
           color="light_navy"
           onChange={radioOnChange}
           isChecked={activeRadioSt === 'No'}
+          disabled={disabled}
         />
       </div>
+
+      {disabled && (
+        <p className="font-roobert_regular text-16 text-red text-center">
+          Can't update your vote since it's less than 1 day notice.
+        </p>
+      )}
 
       {activeRadioSt && (
         <div

@@ -21,11 +21,12 @@ function Saturdays({
 }: ISaturdaysProps) {
   return (
     <div className="grow flex flex-col gap-32">
-      {Object.entries(saturdaysHashTable).map(([_id, { name, employees }]) => (
+      {Object.entries(saturdaysHashTable).map(([_id, { name, date, employees }]) => (
         <Saturday
           key={`${name}_${_id}_Saturday`}
           _id={_id}
           name={name}
+          date={date}
           employees={employees}
           activeEmployee={activeEmployee}
           allEmployees={employeesHashTable.allEmployees}

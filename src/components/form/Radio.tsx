@@ -3,9 +3,10 @@ interface IRadioProps {
   color: 'yellow' | 'light_navy';
   onChange: (value: string) => void;
   isChecked: boolean;
+  disabled: boolean;
 }
 
-export function Radio({ name, color, onChange, isChecked = false }: IRadioProps) {
+export function Radio({ name, color, onChange, isChecked = false, disabled = false }: IRadioProps) {
   const colorIsYellow = color === 'yellow';
 
   return (
@@ -19,6 +20,7 @@ export function Radio({ name, color, onChange, isChecked = false }: IRadioProps)
         name={name}
         value={name}
         checked={isChecked}
+        disabled={disabled}
         className="hidden"
         onChange={(event) => onChange(event.target.value)}
       />
