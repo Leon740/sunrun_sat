@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 
 export interface ITheme {
   isLight: boolean;
+  textColor: 'text-dark_navy' | 'text-white';
 }
 
 export function useTheme(): ITheme {
-  const [themeSt, setThemeSt] = useState<'dark' | 'light'>(() => 'light');
+  const [themeSt, setThemeSt] = useState<'dark' | 'light'>('light');
+  const isLight = themeSt === 'light';
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -21,5 +23,5 @@ export function useTheme(): ITheme {
     return () => mediaQuery.removeEventListener('change', handleThemeChange);
   }, []);
 
-  return { isLight: themeSt === 'light' };
+  return { isLight, textColor: isLight ? 'text-dark_navy' : 'text-white' };
 }

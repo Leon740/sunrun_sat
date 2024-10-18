@@ -35,8 +35,7 @@ export function Avatar({ name, handleNameOnChange = () => {}, isEditable = false
   };
 
   // theme
-  const { isLight } = useThemeContext();
-  const textColor = isLight ? 'text-dark_navy' : 'text-white';
+  const { textColor } = useThemeContext();
 
   return (
     <div className="w-full flex items-center gap-32">
@@ -49,6 +48,7 @@ export function Avatar({ name, handleNameOnChange = () => {}, isEditable = false
         handleOnChange={handleNameInputOnChange}
         className={`w-full text-20 font-roobert_semibold capitalize border-2 border-transparent focus:border-sky_blue ${textColor}`}
         isEditable={isEditable}
+        editIconColor={textColor}
       />
     </div>
   );

@@ -20,13 +20,13 @@ export function Label({
   handleOnSave = () => {},
   className = ''
 }: ILabelProps) {
-  const { isLight } = useThemeContext();
+  const { textColor } = useThemeContext();
 
   return (
     <label
       htmlFor={name}
       className={`font-roobert_semibold ${text} capitalize flex items-center justify-between
-        ${isLight ? 'text-dark_navy' : 'text-white'}
+        ${textColor}
         ${className}
       `}
     >
@@ -39,6 +39,7 @@ export function Label({
           handleOnReset={handleOnReset}
           handleOnSave={handleOnSave}
           className="w-full border-2 border-transparent focus:border-light_navy"
+          editIconColor={textColor}
         />
       ) : (
         name

@@ -9,6 +9,7 @@ interface IInputProps {
   handleOnReset?: () => void;
   handleOnSave?: (value: string) => void;
   className?: string;
+  editIconColor?: 'text-dark_navy' | 'text-white';
 }
 
 export function Input({
@@ -18,7 +19,8 @@ export function Input({
   handleOnChange = () => {},
   handleOnReset = () => {},
   handleOnSave = () => {},
-  className = 'w-full text-16 font-roobert_regular text-dark_navy bg-sky_blue py-8 pl-16 pr-48 rounded-8 border-2 border-transparent focus:border-light_navy'
+  className = 'w-full text-16 font-roobert_regular text-dark_navy bg-sky_blue py-8 pl-16 pr-48 rounded-8 border-2 border-transparent focus:border-light_navy',
+  editIconColor = 'text-dark_navy'
 }: IInputProps) {
   // inputValueInitial
   const inputValueInitial = useRef(value);
@@ -88,8 +90,7 @@ export function Input({
               ariaLabel={`Edit ${id} Input`}
               handleOnClick={handleEditButtonOnClick}
             >
-              {/* iconColor: inherit; */}
-              <Icon icon="edit" />
+              <Icon icon="edit" className={editIconColor} />
             </Button>
           )}
         </div>

@@ -18,7 +18,7 @@ interface IThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: IThemeProviderProps) {
-  const { isLight } = useTheme();
+  const { isLight, textColor } = useTheme();
 
-  return <ThemeContext.Provider value={{ isLight }}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ isLight, textColor }}>{children}</ThemeContext.Provider>;
 }
