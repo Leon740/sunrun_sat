@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Label } from '@/components';
-import { SATURDAY_API_URI, useAxios } from 'src/hooks';
+import { APIS } from '@/constants';
+import { useAxios } from 'src/hooks';
 import { IEmployee, IEmployeesHashTable, ISaturday, TEmployeePosition } from 'src/types';
 import { POSITIONS } from '@/constants';
 import { RadioGroup, TRadio } from './RadioGroup';
@@ -43,7 +44,7 @@ export function Saturday({
   // putSaturday
   const { triggerRequest: putSaturday } = useAxios<ISaturday>({
     query: 'put',
-    url: `${SATURDAY_API_URI}/${saturdayId}`
+    url: `${APIS.SATURDAY_API_URI}/${saturdayId}`
   });
 
   const employeesIdsArray = Array.from(employeesIdsSet);

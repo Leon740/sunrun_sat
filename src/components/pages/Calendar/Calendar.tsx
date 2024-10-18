@@ -1,6 +1,7 @@
 import { Status } from '@/components';
 import { useEffect, useState } from 'react';
-import { SATURDAY_API_URI, useAxios } from 'src/hooks';
+import { APIS } from '@/constants';
+import { useAxios } from 'src/hooks';
 import { IEmployee, IEmployeesHashTable, ISaturdayHashTable } from 'src/types';
 import { Saturday } from './Saturday';
 import { useEmployeeContext } from 'src/contexts';
@@ -41,7 +42,7 @@ export default function Calendar() {
 
   const { status, triggerRequest: getAllSaturdays } = useAxios<ISaturdayHashTable>({
     query: 'get',
-    url: SATURDAY_API_URI,
+    url: APIS.SATURDAY_API_URI,
     onSuccess: (data) => {
       setSaturdaysHashTableSt(data);
     }

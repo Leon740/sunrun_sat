@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
 
-const BASE_API_URI = 'http://localhost:5001/api';
-export const SIGNIN_API_URI = `${BASE_API_URI}/signin`;
-export const EMPLOYEE_API_URI = `${BASE_API_URI}/employees`;
-export const SATURDAY_API_URI = `${BASE_API_URI}/saturdays`;
-
 type TQuery = 'get' | 'post' | 'put' | 'delete';
 
 interface IAxios<TData> {

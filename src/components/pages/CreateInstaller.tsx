@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { IEmployee, TEmployeePosition } from '@/types';
 import { useEmployeeContext } from '@/contexts';
-import { EMPLOYEE_API_URI, useAxios } from '@/hooks';
+import { APIS } from '@/constants';
+import { useAxios } from '@/hooks';
 import {
   Avatar,
   Input,
@@ -65,7 +66,7 @@ export default function CreateInstaller() {
   // handleCreateButtonOnClick
   const { status, triggerRequest: handleCreateButtonOnClick } = useAxios<IEmployee>({
     query: 'post',
-    url: EMPLOYEE_API_URI,
+    url: APIS.EMPLOYEE_API_URI,
     body: newEmployee,
     onSuccess: (data) => {
       setIdSt(data._id);

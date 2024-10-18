@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { IEmployee, IEmployeesHashTable } from '@/types';
-import { useLocalStorage, EMPLOYEE_API_URI, useAxios } from '@/hooks';
+import { APIS } from 'src/constants';
+import { useLocalStorage, useAxios } from '@/hooks';
 
 interface IEmployeeContext {
   employee: IEmployee;
@@ -49,7 +50,7 @@ export function EmployeeProvider({ children }: IEmployeeProviderProps) {
 
   const { status, triggerRequest: getEmployees } = useAxios<IEmployeesHashTable>({
     query: 'get',
-    url: EMPLOYEE_API_URI,
+    url: APIS.EMPLOYEE_API_URI,
     onSuccess: (data) => {
       setFetchedEmployeesHashTableSt(data);
     }

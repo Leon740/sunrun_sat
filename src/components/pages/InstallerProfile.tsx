@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IEmployee } from '@/types';
-import { EMPLOYEE_API_URI, useAxios } from '@/hooks';
+import { APIS } from '@/constants';
+import { useAxios } from '@/hooks';
 import { useEmployeeContext } from '@/contexts';
 import { Avatar, Input, Group, PositionSelect, CrewSelect, Status, FormButton } from '@/components';
 
@@ -49,7 +50,7 @@ export default function InstallerProfile() {
   // handleUpdateButtonOnClick
   const { status, triggerRequest: handleUpdateButtonOnClick } = useAxios<IEmployee>({
     query: 'put',
-    url: `${EMPLOYEE_API_URI}/${employee._id}`,
+    url: `${APIS.EMPLOYEE_API_URI}/${employee._id}`,
     body: newEmployee,
     onSuccess: (data) => {
       setEmployee(data);

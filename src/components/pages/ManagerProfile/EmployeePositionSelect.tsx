@@ -1,7 +1,7 @@
 import { Button, Select, SelectOption, TOption } from '@/components';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IPosition, routes } from '@/constants';
+import { IPosition, ROUTES } from '@/constants';
 import { IEmployee } from 'src/types';
 
 interface ISelectInnerOptionProps {
@@ -77,7 +77,7 @@ export function EmployeePositionSelect({
   const navigate = useNavigate();
 
   const defaultButtonOnClick = () => {
-    navigate(`${routes.employee}/${defaultOption.value}`);
+    navigate(`${ROUTES.employee}/${defaultOption.value}`);
   };
 
   return (

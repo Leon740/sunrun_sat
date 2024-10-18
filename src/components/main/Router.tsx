@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
-import { routes } from '@/constants';
+import { ROUTES } from '@/constants';
 import { useEmployeeContext } from 'src/contexts';
 const SignIn = lazy(() => import('../pages/SignIn'));
 const Calendar = lazy(() => import('../pages/Calendar/Calendar'));
@@ -10,7 +10,7 @@ const EditInstaller = lazy(() => import('../pages/EditInstaller/EditInstaller'))
 const CreateInstaller = lazy(() => import('../pages/CreateInstaller'));
 
 function NavigateToSignIn() {
-  return <Navigate to={routes.signIn} />;
+  return <Navigate to={ROUTES.signIn} />;
 }
 
 export function Router() {
@@ -18,22 +18,22 @@ export function Router() {
   const { employee, isManager } = useEmployeeContext();
   const isSignedIn = !!employee._id;
 
-  // routes
-  const routesObject: RouteObject[] = [
+  // ROUTES
+  const RoutesObject: RouteObject[] = [
     {
       path: '/',
-      element: isSignedIn ? <Navigate to={routes.profile} /> : <NavigateToSignIn />
+      element: isSignedIn ? <Navigate to={ROUTES.profile} /> : <NavigateToSignIn />
     },
     {
-      path: routes.signIn,
+      path: ROUTES.signIn,
       element: <SignIn />
     },
     {
-      path: routes.calendar,
+      path: ROUTES.calendar,
       element: isSignedIn ? <Calendar /> : <NavigateToSignIn />
     },
     {
-      path: routes.profile,
+      path: ROUTES.profile,
       element: isSignedIn ? (
         isManager ? (
           <ManagerProfile />
@@ -45,11 +45,11 @@ export function Router() {
       )
     },
     {
-      path: `${routes.employee}/:id`,
+      path: `${ROUTES.employee}/:id`,
       element: isSignedIn && isManager ? <EditInstaller /> : <NavigateToSignIn />
     },
     {
-      path: routes.newEmployee,
+      path: ROUTES.newEmployee,
       element: isSignedIn && isManager ? <CreateInstaller /> : <NavigateToSignIn />
     },
     {
@@ -58,5 +58,5 @@ export function Router() {
     }
   ];
 
-  return <Suspense fallback={<p>Loading...</p>}>{useRoutes(routesObject)}</Suspense>;
+  return <Suspense fallback={<p>Loading...</p>}>{useRoutes(RoutesObject)}</Suspense>;
 }

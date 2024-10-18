@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { IEmployee } from '@/types';
 import { useEmployeeContext } from '@/contexts';
-import { SIGNIN_API_URI, useAxios } from '@/hooks';
+import { APIS } from '@/constants';
+import { useAxios } from '@/hooks';
 import { Input, Group, Status, FormButton } from '@/components';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '@/constants';
+import { ROUTES } from '@/constants';
 
 export default function SignIn() {
   // id
@@ -22,7 +23,7 @@ export default function SignIn() {
   // handleSignInButtonOnClick
   const { status, triggerRequest: handleSignInButtonOnClick } = useAxios<IEmployee>({
     query: 'get',
-    url: `${SIGNIN_API_URI}/${idSt}`,
+    url: `${APIS.SIGNIN_API_URI}/${idSt}`,
     onSuccess: (data) => {
       setEmployee(data);
     }
@@ -33,7 +34,8 @@ export default function SignIn() {
 
   useEffect(() => {
     if (employee) {
-      navigate(routes.profile);
+      // TODO:
+      // navigate(ROUTES.profile);
     }
   }, [employee]);
 

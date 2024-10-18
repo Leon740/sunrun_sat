@@ -1,8 +1,6 @@
 import { StrictMode } from 'react';
-import { ThemeProvider } from '@/contexts';
-import { EmployeeProvider } from '@/contexts';
+import { ThemeProvider, EmployeeProvider } from '@/contexts';
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 import {
   Loader,
   ErrorBoundary,
@@ -12,6 +10,7 @@ import {
   Header,
   Footer
 } from '@/components/main';
+import './App.css';
 
 function App() {
   return (

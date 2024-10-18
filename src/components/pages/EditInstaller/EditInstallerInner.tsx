@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IEmployee, TEmployeePosition } from '@/types';
-import { EMPLOYEE_API_URI, useAxios } from '@/hooks';
+import { APIS } from '@/constants';
+import { useAxios } from '@/hooks';
 import {
   Avatar,
   Input,
@@ -58,7 +59,7 @@ export function EditInstallerInner({ employee }: IEditInstallerInnerProps) {
     crew: crewOptionSt.label.split(' - ')[0]
   };
 
-  const queryUrl = `${EMPLOYEE_API_URI}/${employee._id}`;
+  const queryUrl = `${APIS.EMPLOYEE_API_URI}/${employee._id}`;
 
   // handleUpdateButtonOnClick
   const { status: updateStatus, triggerRequest: handleUpdateButtonOnClick } = useAxios({

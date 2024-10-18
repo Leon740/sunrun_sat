@@ -3,7 +3,7 @@ import logoDark from 'src/assets/images/logo/logo_dark.svg';
 import { Icon, Img } from '@/components';
 import { useEmployeeContext, useThemeContext } from '@/contexts';
 import { NavLink } from 'react-router-dom';
-import { routes } from '@/constants';
+import { ROUTES } from '@/constants';
 
 export function Header() {
   // employeeContext
@@ -23,7 +23,7 @@ export function Header() {
         >
           {isSignedIn && (
             <NavLink
-              to={routes.calendar}
+              to={ROUTES.calendar}
               className={({ isActive }) =>
                 isActive ? (isLight ? 'text-dark_navy' : 'text-sky_blue') : 'text-light_navy'
               }
@@ -36,7 +36,7 @@ export function Header() {
 
           {isSignedIn && (
             <NavLink
-              to={routes.profile}
+              to={ROUTES.profile}
               className={({ isActive }) =>
                 isActive ? (isLight ? 'text-dark_navy' : 'text-sky_blue') : 'text-light_navy'
               }

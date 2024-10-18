@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { Group, Status, FormButton } from '@/components';
-import { POSITIONS, routes } from '@/constants';
+import { POSITIONS, ROUTES, APIS } from '@/constants';
 import { IEmployee, IEmployeesHashTable, TEmployeePosition } from 'src/types';
-import { EMPLOYEE_API_URI, useAxios } from 'src/hooks';
+import { useAxios } from 'src/hooks';
 import { EmployeePositionSelect, SelectInnerOption } from './EmployeePositionSelect';
 import { useEmployeeContext } from 'src/contexts';
 import { useNavigate } from 'react-router-dom';
@@ -161,7 +161,7 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
 
   const { status, triggerRequest: putEmployees } = useAxios<IEmployeesHashTable>({
     query: 'put',
-    url: EMPLOYEE_API_URI
+    url: APIS.EMPLOYEE_API_URI
   });
 
   const handleEditButtonOnClick = () => {
@@ -172,7 +172,7 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
   const navigate = useNavigate();
 
   const handleNewEmployeeButtonOnClick = () => {
-    navigate(routes.newEmployee);
+    navigate(ROUTES.newEmployee);
   };
 
   const handleResetButtonOnClick = () => {
