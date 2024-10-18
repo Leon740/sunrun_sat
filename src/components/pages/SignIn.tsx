@@ -34,8 +34,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (employee) {
-      // TODO:
-      // navigate(ROUTES.profile);
+      navigate(ROUTES.profile);
     }
   }, [employee]);
 
