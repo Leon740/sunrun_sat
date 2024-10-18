@@ -55,7 +55,7 @@ export function SelectOption({
       handleOnClick={handleOnClick}
       handleOnFocus={handleOnFocus}
       handleOnBlur={handleOnBlur}
-      className="w-full border-2 border-solid focus:border-red"
+      className="w-full"
     >
       {children}
     </Button>
@@ -151,7 +151,7 @@ export function Select({
               ariaLabel="Toggle Select"
               handleOnFocus={handleSelectOnFocus}
               handleOnBlur={handleSelectOnBlur}
-              className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy focus:text-red"
+              className="cursor-pointer absolute z-20 top-[12px] right-16 text-dark_navy"
             >
               <Icon icon="arrow" />
             </Button>
