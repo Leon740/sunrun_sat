@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Label } from '@/components';
 import { APIS } from '@/constants';
 import { useAxios } from 'src/hooks';
@@ -27,19 +27,25 @@ export function Saturday({
   allEmployees,
   isManager
 }: ISaturdayProps) {
-  // RadioGroupOnChange - employeesIdsSetRef
-  const employeesIdsSetRef = useRef(new Set(employees));
+  // RadioGroupOnChange - employeesIdsSet
+  const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(employees));
 
-  const [activeRadioSt, setActiveRadioSt] = useState<TRadio>(() =>
-    employeesIdsSetRef.current.has(activeEmployee._id) ? 'Yes' : 'No'
+  const [activeRadioSt, setActiveRadioSt] = useState<TRadio>(
+    employeesIdsSet.has(activeEmployee._id) ? 'Yes' : 'No'
   );
 
   useEffect(() => {
-    if (activeRadioSt === 'Yes') {
-      employeesIdsSetRef.current.add(activeEmployee._id);
-    } else {
-      employeesIdsSetRef.current.delete(activeEmployee._id);
-    }
+    setEmployeesIdsSet((prevEmployeesIdsSet) => {
+      const newEmployeesIdsSet = new Set(prevEmployeesIdsSet);
+
+      if (activeRadioSt === 'Yes') {
+        newEmployeesIdsSet.add(activeEmployee._id);
+      } else {
+        newEmployeesIdsSet.delete(activeEmployee._id);
+      }
+
+      return newEmployeesIdsSet;
+    });
   }, [activeRadioSt]);
 
   // putSaturday
@@ -48,11 +54,11 @@ export function Saturday({
     url: `${APIS.SATURDAY_API_URI}/${saturdayId}`
   });
 
-  const employeesIdsArray = Array.from(employeesIdsSetRef.current);
+  const employeesIdsArray = Array.from(employeesIdsSet);
 
   useEffect(() => {
-    putSaturday({ reqBody: { name, date, employees: employeesIdsArray } });
-  }, [employeesIdsSetRef.current]);
+    putSaturday({ reqBody: { name, employees: employeesIdsArray } });
+  }, [employeesIdsSet]);
 
   // sunrunnersComingIn
   const sunrunnersComingIn: IEmployee[] = employeesIdsArray.map((_id) => allEmployees[_id]);
