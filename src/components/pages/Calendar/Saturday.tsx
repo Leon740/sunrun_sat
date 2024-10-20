@@ -1,10 +1,31 @@
-import { useEffect, useState } from 'react';
-import { Label } from '@/components/form';
-import { APIS } from '@/constants';
+import { ReactNode, useEffect, useState } from 'react';
+import { Group, Label } from '@/components/form';
+import { APIS, IPosition } from '@/constants';
 import { useAxios } from 'src/hooks';
 import { IEmployee, IEmployeesHashTable, ISaturday, TEmployeePosition } from 'src/types';
 import { POSITIONS } from '@/constants';
 import { RadioGroup, TRadio } from './RadioGroup';
+
+interface IEmployeePositionListProps {
+  children: ReactNode;
+}
+
+function EmployeePositionUl({ children }: IEmployeePositionListProps) {
+  return children ? <ul className="flex flex-row flex-wrap gap-16">{children}</ul> : null;
+}
+
+interface IEmployeePositionLiProps {
+  children: ReactNode;
+  color: IPosition['color'];
+}
+
+function EmployeePositionLi({ children, color }: IEmployeePositionLiProps) {
+  return (
+    <li className={`font-roobert_regular text-16 text-dark_navy p-8 rounded-8 ${color}`}>
+      {children}
+    </li>
+  );
+}
 
 const getDaysDifference = (date1: Date, date2: Date): number => {
   const diffInTime = Math.abs(date2.getTime() - date1.getTime());
@@ -15,20 +36,23 @@ const getDaysDifference = (date1: Date, date2: Date): number => {
 interface ISaturdayProps extends ISaturday {
   activeEmployee: IEmployee;
   allEmployees: IEmployeesHashTable['allEmployees'];
+  initialCrews: Set<IEmployee['crew']>;
   isManager: boolean;
 }
 
 export function Saturday({
   _id: saturdayId,
-  name,
-  date,
-  employees,
+  name: saturdayName,
+  date: saturdayDate,
+  employees: saturdayEmployees,
   activeEmployee,
   allEmployees,
+  initialCrews,
   isManager
 }: ISaturdayProps) {
-  // RadioGroupOnChange - employeesIdsSet
-  const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(employees));
+  // RadioGroupOnChange
+  // employeesIdsSet
+  const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(saturdayEmployees));
 
   const [activeRadioSt, setActiveRadioSt] = useState<TRadio>(
     employeesIdsSet.has(activeEmployee._id) ? 'Yes' : 'No'
@@ -57,11 +81,25 @@ export function Saturday({
   const employeesIdsArray = Array.from(employeesIdsSet);
 
   useEffect(() => {
-    putSaturday({ reqBody: { name, employees: employeesIdsArray } });
+    putSaturday({ reqBody: { name: saturdayName, employees: employeesIdsArray } });
   }, [employeesIdsSet]);
 
   // sunrunnersComingIn
-  const sunrunnersComingIn: IEmployee[] = employeesIdsArray.map((_id) => allEmployees[_id]);
+  // crews
+  const crews: {
+    [key: IEmployee['crew']]: {
+      [key in TEmployeePosition]: IEmployee | Record<string, never>;
+    };
+  } = {};
+
+  initialCrews.forEach((initialCrew) => {
+    crews[initialCrew] = {
+      Foreman: {},
+      Lead: {},
+      Installer: {},
+      Electrician: {}
+    };
+  });
 
   // sunrunnersComingInByPosition
   const sunrunnersComingInByPosition: { [key in TEmployeePosition]: IEmployee[] } = {
@@ -71,21 +109,46 @@ export function Saturday({
     Electrician: []
   };
 
-  sunrunnersComingIn.forEach((employee) => {
+  employeesIdsArray.forEach((_id) => {
+    const employee = allEmployees[_id];
+
+    // crews
+    if (employee.crew !== 'unassigned') {
+      crews[employee.crew][employee.position as TEmployeePosition] = employee;
+    }
+
+    // sunrunnersComingInByPosition
     sunrunnersComingInByPosition[employee.position as TEmployeePosition].push(employee);
+
+    return employee;
+  });
+
+  // activeCrews
+  const activeCrews: IEmployee['crew'][] = [];
+
+  Object.entries(crews).forEach(([crew, positions]) => {
+    if (
+      (positions.Foreman?._id && positions.Lead?._id) ||
+      (positions.Foreman?._id && positions.Electrician?._id)
+    ) {
+      activeCrews.push(crew);
+    }
   });
 
   // disabledVote
   const today = new Date();
-  const [year, month, day] = date.split('-').map(Number);
+  const [year, month, day] = saturdayDate.split('-').map(Number);
   // new Date(date) will result to previous month, so array destructuring is really needed
-  const saturdayDate = new Date(year, month, day);
-  const isDisabled = getDaysDifference(today, saturdayDate) < 2;
+  const newSaturdayDate = new Date(year, month, day);
+  const isDisabled = getDaysDifference(today, newSaturdayDate) < 2;
+
+  // keys
+  const keyBase = `${saturdayDate}_${saturdayId}`;
 
   return (
-    <section className="flex flex-col gap-32" aria-label={name}>
-      <h2 aria-label={name} className="flex justify-center">
-        <Label name={name} text="text-20" />
+    <section className="flex flex-col gap-32" aria-label={saturdayName}>
+      <h2 aria-label={saturdayName} className="flex justify-center">
+        <Label name={saturdayName} text="text-20" />
       </h2>
 
       {!isManager && (
@@ -96,30 +159,60 @@ export function Saturday({
         />
       )}
 
-      {sunrunnersComingIn.length > 0 && (
+      {employeesIdsArray.length > 0 && (
         <>
           <Label name="Sunrunners coming in" text="text-20" />
-          {POSITIONS.map((position) => {
-            const employeesByPosition = sunrunnersComingInByPosition[position.title];
 
-            return (
-              employeesByPosition.length > 0 && (
-                <ul
-                  key={`${name}_Saturday_${position.title}_Ul`}
-                  className="flex flex-row flex-wrap gap-16"
-                >
-                  {employeesByPosition.map((employee) => (
-                    <li
-                      key={`${name}_Saturday_${position.title}_Ul_${employee._id}_Li`}
-                      className={`font-roobert_regular text-16 text-dark_navy p-8 rounded-8 ${position.color}`}
-                    >
-                      {employee.nickname}
-                    </li>
-                  ))}
-                </ul>
-              )
-            );
-          })}
+          {activeCrews.length > 0 &&
+            activeCrews.map((crewName) => {
+              const currentCrew = crews[crewName];
+              const keyCrew = `${keyBase}_${crewName}`;
+
+              return (
+                <Group key={keyCrew} name={crewName}>
+                  <EmployeePositionUl>
+                    {POSITIONS.map((position) => {
+                      const employee = currentCrew[position.title];
+
+                      if (employee._id) {
+                        return (
+                          <EmployeePositionLi
+                            key={`${keyCrew}_${employee._id}`}
+                            color={position.color}
+                          >
+                            {employee.nickname}
+                          </EmployeePositionLi>
+                        );
+                      }
+                    })}
+                  </EmployeePositionUl>
+                </Group>
+              );
+            })}
+
+          <Group name="Crews to be determined">
+            {POSITIONS.map((position) => {
+              const employeesByPosition = sunrunnersComingInByPosition[position.title].filter(
+                (employee) => !activeCrews.includes(employee.crew)
+              );
+              const keyPosition = `${keyBase}_${position.title}`;
+
+              return (
+                employeesByPosition.length > 0 && (
+                  <EmployeePositionUl key={keyPosition}>
+                    {employeesByPosition.map((employee) => (
+                      <EmployeePositionLi
+                        key={`${keyPosition}_${employee._id}`}
+                        color={position.color}
+                      >
+                        {employee.nickname}
+                      </EmployeePositionLi>
+                    ))}
+                  </EmployeePositionUl>
+                )
+              );
+            })}
+          </Group>
         </>
       )}
     </section>
