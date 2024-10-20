@@ -8,6 +8,7 @@ interface IRadioProps {
 
 export function Radio({ name, color, onChange, isChecked = false, disabled = false }: IRadioProps) {
   const colorIsYellow = color === 'yellow';
+  const cursorClassName = `${disabled ? '' : 'cursor-pointer'}`;
 
   return (
     <label
@@ -26,14 +27,17 @@ export function Radio({ name, color, onChange, isChecked = false, disabled = fal
       />
 
       <span
-        className={`w-16 h-16 rounded-50 border-2 transition ${
-          colorIsYellow
-            ? `border-yellow ${isChecked ? 'bg-yellow' : ''}`
-            : `border-light_navy ${isChecked ? 'bg-light_navy' : ''}`
-        }`}
+        className={`w-16 h-16 rounded-50 border-2 transition
+          ${cursorClassName}
+          ${
+            colorIsYellow
+              ? `border-yellow ${isChecked ? 'bg-yellow' : ''}`
+              : `border-light_navy ${isChecked ? 'bg-light_navy' : ''}`
+          }
+          `}
       />
 
-      <span className="font-roobert_semibold text-20 capitalize">{name}</span>
+      <span className={`font-roobert_semibold text-20 capitalize ${cursorClassName}`}>{name}</span>
     </label>
   );
 }

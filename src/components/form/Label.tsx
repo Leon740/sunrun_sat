@@ -27,6 +27,7 @@ export function Label({
       htmlFor={name}
       className={`font-roobert_semibold ${text} capitalize flex items-center justify-between
         ${textColor}
+        ${isEditable ? 'cursor-pointer' : ''}
         ${className}
       `}
     >

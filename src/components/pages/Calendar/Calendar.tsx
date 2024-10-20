@@ -19,17 +19,31 @@ function Saturdays({
   employeesHashTable,
   isManager
 }: ISaturdaysProps) {
+  const { allEmployees, employeesByPosition } = employeesHashTable;
+
+  // initialCrews
+  const initialCrews: Set<IEmployee['crew']> = new Set();
+
+  employeesByPosition.Foreman.forEach((foremanId) => {
+    const crew = allEmployees[foremanId].crew;
+
+    if (crew !== 'unassigned') {
+      initialCrews.add(crew);
+    }
+  });
+
   return (
     <div className="grow flex flex-col gap-32">
       {Object.entries(saturdaysHashTable).map(([_id, { name, date, employees }]) => (
         <Saturday
-          key={`${name}_${_id}_Saturday`}
+          key={`${date}_${_id}`}
           _id={_id}
           name={name}
           date={date}
           employees={employees}
           activeEmployee={activeEmployee}
-          allEmployees={employeesHashTable.allEmployees}
+          allEmployees={allEmployees}
+          initialCrews={initialCrews}
           isManager={isManager}
         />
       ))}
