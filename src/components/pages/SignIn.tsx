@@ -45,7 +45,7 @@ export default function SignIn() {
           <Input isEditable id={'id'} value={idSt} handleOnChange={handleIdOnChange} />
         </Group>
 
-        <Status status={status} errorMessage="No employee found." successMessage="Signing in ..." />
+        <Status status={status} errorMessage="No employee found" successMessage="Signing in ..." />
 
         <FormButton
           type="submit"

@@ -28,6 +28,6 @@ export default function EditInstaller() {
   return employeeSt ? (
     <EditInstallerInner employee={employeeSt} />
   ) : (
-    <Status status={status} errorMessage="Error fetching Employee." />
+    <Status status={status} errorMessage="Error fetching Employee" />
   );
 }

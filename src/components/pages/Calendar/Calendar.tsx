@@ -64,6 +64,6 @@ export default function Calendar() {
       isManager={isManager}
     />
   ) : (
-    <Status status={status} errorMessage="Error fetching Saturdays." />
+    <Status status={status} errorMessage="Error fetching Saturdays" />
   );
 }

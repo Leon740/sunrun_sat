@@ -169,6 +169,7 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
   };
 
   // router
+  // newEmployee
   const navigate = useNavigate();
 
   const handleNewEmployeeButtonOnClick = () => {
@@ -237,8 +238,8 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
 
         <Status
           status={status}
-          errorMessage="Error updating Employees."
-          successMessage="Employees updated successfully."
+          errorMessage="Error updating Employees"
+          successMessage="Employees updated successfully"
         />
       </div>
 
@@ -307,6 +308,6 @@ export function Crews() {
   return employeesHashTable ? (
     <CrewsInner employeesHashTable={employeesHashTable} />
   ) : (
-    <Status status={status} errorMessage="Error fetching Employees." />
+    <Status status={status} errorMessage="Error fetching Employees" />
   );
 }

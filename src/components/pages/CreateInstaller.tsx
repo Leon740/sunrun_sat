@@ -100,7 +100,7 @@ export default function CreateInstaller() {
 
       <Status
         status={status}
-        errorMessage="Error creating Employee."
+        errorMessage="Error creating Employee"
         successMessage={`Employee was successfully created. <br /> Copy this id and share it with the employee to SignIn. <br /> ${idSt}`}
         className="mt-32"
       />

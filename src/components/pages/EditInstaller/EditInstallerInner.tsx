@@ -101,15 +101,15 @@ export function EditInstallerInner({ employee }: IEditInstallerInnerProps) {
 
       <Status
         status={updateStatus}
-        errorMessage="Error updating Employee."
-        successMessage="Employee was successfully updated."
+        errorMessage="Error updating Employee"
+        successMessage="Employee was successfully updated"
         className="mt-32"
       />
 
       <Status
         status={deleteStatus}
-        errorMessage="Error deleting Employee."
-        successMessage="Employee was successfully deleted."
+        errorMessage="Error deleting Employee"
+        successMessage="Employee was successfully deleted"
         className="mt-32"
       />
 

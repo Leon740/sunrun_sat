@@ -87,8 +87,8 @@ export default function InstallerProfile() {
 
       <Status
         status={status}
-        errorMessage="Error updating Employee."
-        successMessage="Employee was successfully updated."
+        errorMessage="Error updating Employee"
+        successMessage="Employee was successfully updated"
         className="mt-32"
       />
 

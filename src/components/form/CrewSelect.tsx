@@ -81,6 +81,6 @@ export function CrewSelect({ isEditable, activeCrew, setActiveCrew = () => {} }:
       setActiveCrew={setActiveCrew}
     />
   ) : (
-    <Status status={status} errorMessage="Error fetching Crews." />
+    <Status status={status} errorMessage="Error fetching Crews" />
   );
 }
