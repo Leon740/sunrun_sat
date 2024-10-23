@@ -1,4 +1,4 @@
-const BRANCH_API_URI = 'https://sunrun-sat-back.onrender.com/api';
+const BRANCH_API_URI = 'https://sunrun-sat-back.onrender.com/api/branches';
 // const BRANCH_API_URI = 'http://localhost:5001/api/branches';
 
 export const APIS = {
