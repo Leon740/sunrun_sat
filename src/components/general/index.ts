@@ -1,4 +1,4 @@
-import { Icon, TIcons } from './Icon';
+import { Icon, TIcon } from './Icon';
 import { Img } from './Img';
 import { Avatar } from './Avatar';
-export { Icon, type TIcons, Img, Avatar };
+export { Icon, type TIcon, Img, Avatar };

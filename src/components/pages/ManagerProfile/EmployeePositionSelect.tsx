@@ -111,7 +111,7 @@ export function EmployeePositionSelect({
           )}
           renderOptions={(options) =>
             options.map((option) => (
-              <SelectOption key={`Employee_${title}_SelectOption_${option.value}`} option={option}>
+              <SelectOption key={`${option.value}_Option_Employee_${title}_Select`} option={option}>
                 <SelectInnerOption
                   label={option.label}
                   className="border-t-2 bg-sky_blue hover:bg-light_navy"
@@ -119,7 +119,6 @@ export function EmployeePositionSelect({
               </SelectOption>
             ))
           }
-          activeMaxHeightClassName="max-h-[256px]"
         />
       ) : (
         <EmployeeButton _id={defaultOption.value} label={defaultOption.label} color={color} />

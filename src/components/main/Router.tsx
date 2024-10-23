@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 import { useEmployeeContext } from 'src/contexts';
-const SignIn = lazy(() => import('../pages/SignIn'));
+const SignIn = lazy(() => import('../pages/SignIn/SignIn'));
 const Calendar = lazy(() => import('../pages/Calendar/Calendar'));
 const ManagerProfile = lazy(() => import('../pages/ManagerProfile/ManagerProfile'));
 const InstallerProfile = lazy(() => import('../pages/InstallerProfile'));

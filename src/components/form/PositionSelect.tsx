@@ -1,32 +1,17 @@
 import { POSITIONS, POSITIONS_OBJECT } from '@/constants';
-import { Select, SelectOption, TOption } from './Select';
+import { Select, SelectInnerOption, SelectOption, TOption } from './Select';
 import { TEmployeePosition } from 'src/types';
-
-interface ISelectInnerOptionProps {
-  label: string;
-  className: string;
-}
-
-function SelectInnerOption({ label, className }: ISelectInnerOptionProps) {
-  return (
-    <div
-      className={`cursor-pointer w-full text-16 text-dark_navy font-roobert_regular text-left py-8 px-16 ${className}`}
-    >
-      {label}
-    </div>
-  );
-}
 
 interface IPositionSelectProps {
   isEditable?: boolean;
-  activePosition: TOption;
-  setActivePosition?: (newPosition: TOption) => void;
+  activePositionOption: TOption;
+  setActivePositionOption?: (newPosition: TOption) => void;
 }
 
 export function PositionSelect({
   isEditable = false,
-  activePosition,
-  setActivePosition = () => {}
+  activePositionOption,
+  setActivePositionOption = () => {}
 }: IPositionSelectProps) {
   const options = POSITIONS.map((position) => ({
     label: position.title,
@@ -37,8 +22,8 @@ export function PositionSelect({
     <Select
       isEditable={isEditable}
       options={options}
-      defaultOption={activePosition || { label: 'Installer', value: 'Installer' }}
-      setActiveOption={setActivePosition}
+      defaultOption={activePositionOption || { label: 'Installer', value: 'Installer' }}
+      setActiveOption={setActivePositionOption}
       renderActiveOption={(activeOption) => (
         <SelectInnerOption
           label={activeOption.label}

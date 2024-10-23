@@ -1,5 +1,5 @@
 import { Button } from './Button';
-import { Icon, TIcons } from '@/components/general';
+import { Icon, TIcon } from '@/components/general';
 
 interface IFormButtonProps {
   type: 'button' | 'submit' | 'reset' | undefined;
@@ -8,7 +8,7 @@ interface IFormButtonProps {
   className?: string;
   bg: 'bg-white' | 'bg-orange' | 'bg-yellow' | 'bg-green' | 'bg-red';
   handleOnClick: () => void;
-  icon: TIcons;
+  icon: TIcon;
   iconClassName?: string;
   label: string;
 }

@@ -12,6 +12,9 @@ interface ICrewsInnerProps {
 }
 
 function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
+  // managerContext
+  const { employee: manager } = useEmployeeContext();
+
   // employeesState
   const { allEmployees, employeesByPosition } = employeesHashTable;
   const [employeesSt, setEmployeesSt] = useState(allEmployees);
@@ -159,17 +162,18 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
   // isEditInProgress
   const [isEditInProgress, setIsEditInProgress] = useState<boolean>(false);
 
-  const { status, triggerRequest: putEmployees } = useAxios<IEmployeesHashTable>({
-    query: 'put',
-    url: APIS.EMPLOYEE_API_URI
-  });
+  const { status: putEmployeesStatus, triggerRequest: putEmployees } =
+    useAxios<IEmployeesHashTable>({
+      query: 'put',
+      url: APIS.ALL_EMPLOYEES_API_URI(manager.branchId)
+    });
 
   const handleEditButtonOnClick = () => {
     setIsEditInProgress(true);
   };
 
   // router
-  // newEmployee
+  // navigateToNewEmployee
   const navigate = useNavigate();
 
   const handleNewEmployeeButtonOnClick = () => {
@@ -187,7 +191,7 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
 
     // send employees
     putEmployees({
-      reqBody: Object.values(employeesSt)
+      reqBody: employeesSt
     });
   };
 
@@ -237,36 +241,41 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
         </div>
 
         <Status
-          status={status}
+          status={putEmployeesStatus}
           errorMessage="Error updating Employees"
           successMessage="Employees updated successfully"
         />
       </div>
 
-      {Object.entries(crewsSt).map(([_id, crew]) => (
-        <Group
-          key={`${crew}_Crew`}
-          name={crew}
-          // unassignedCrew should not get into crewsSt onChange
-          isEditable={isEditInProgress && crew !== unassignedCrew}
-          handleOnChange={(crewName) => handleCrewsOnChange(_id, crewName)}
-          handleOnSave={(crewName) => handleCrewsOnSave(_id, crewName)}
-        >
-          <div className="flex flex-row flex-wrap gap-16">
-            {POSITIONS.map((position) => (
-              <EmployeePositionSelect
-                key={`${crew}_Crew_${position.title}_Select`}
-                employees={employeesArrayByPosition[position.title]}
-                crew={crew}
-                color={position.color}
-                title={position.title}
-                handleOnChange={handleEmployeeSelectOnChange}
-                isEditable={isEditInProgress}
-              />
-            ))}
-          </div>
-        </Group>
-      ))}
+      {Object.entries(crewsSt).map(([_id, crew]) => {
+        const keyCrew = `${crew}_${_id}_Crew`;
+
+        return (
+          <Group
+            key={keyCrew}
+            name={crew}
+            // unassignedCrew should not get into crewsSt onChange
+            isEditable={isEditInProgress && crew !== unassignedCrew}
+            handleOnChange={(crewName) => handleCrewsOnChange(_id, crewName)}
+            handleOnSave={(crewName) => handleCrewsOnSave(_id, crewName)}
+          >
+            <div className="flex flex-row flex-wrap gap-16">
+              {POSITIONS.map((position) => (
+                <EmployeePositionSelect
+                  key={`${keyCrew}_${position.title}_Select`}
+                  employees={employeesArrayByPosition[position.title]}
+                  crew={crew}
+                  color={position.color}
+                  title={position.title}
+                  handleOnChange={handleEmployeeSelectOnChange}
+                  isEditable={isEditInProgress}
+                />
+              ))}
+            </div>
+          </Group>
+        );
+      })}
+
       <div className="pt-32">
         <Group name="unassigned employees">
           {POSITIONS.map((position) => {
@@ -274,25 +283,21 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
               (employee) => employee.crew === unassignedCrew
             );
 
+            const keyCrew = `${unassignedCrew}_Crew_${position.title}_Ul`;
+
             return (
               unassignedEmployeesByPosition.length > 0 && (
-                <div
-                  key={`${unassignedCrew}_Crew_${position.title}_List`}
-                  className="flex flex-row flex-wrap gap-16"
-                >
+                <ul key={keyCrew} className="flex flex-row flex-wrap gap-16">
                   {unassignedEmployeesByPosition.map((employee) => (
-                    <div
-                      key={`${unassignedCrew}_Crew_${position.title}_List_${employee._id}_Item`}
-                      className="basis-128"
-                    >
+                    <li key={`${keyCrew}_${employee._id}_Li`} className="basis-128">
                       <EmployeeButton
                         _id={employee._id}
                         label={employee.nickname}
                         color={position.color}
                       />
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               )
             );
           })}
@@ -303,11 +308,11 @@ function CrewsInner({ employeesHashTable }: ICrewsInnerProps) {
 }
 
 export function Crews() {
-  const { employeesHashTable, status } = useEmployeeContext();
+  const { employeesHashTable, employeesHashTableStatus } = useEmployeeContext();
 
   return employeesHashTable ? (
     <CrewsInner employeesHashTable={employeesHashTable} />
   ) : (
-    <Status status={status} errorMessage="Error fetching Employees" />
+    <Status status={employeesHashTableStatus} errorMessage="Error fetching Employees" />
   );
 }

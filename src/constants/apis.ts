@@ -1,7 +1,9 @@
-// const BASE_API_URI = 'http://localhost:5001/api';
-const BASE_API_URI = 'https://sunrun-sat-back.onrender.com/api';
+const BRANCH_API_URI = 'https://sunrun-sat-back.onrender.com/api';
+// const BRANCH_API_URI = 'http://localhost:5001/api/branches';
+
 export const APIS = {
-  SIGNIN_API_URI: `${BASE_API_URI}/signin`,
-  EMPLOYEE_API_URI: `${BASE_API_URI}/employees`,
-  SATURDAY_API_URI: `${BASE_API_URI}/saturdays`
+  ALL_BRANCHES_SHORT_API_URI: `${BRANCH_API_URI}/short`,
+  EMPLOYEE_API_URI: (branchId: string) => `${BRANCH_API_URI}/${branchId}/employee`,
+  ALL_EMPLOYEES_API_URI: (branchId: string) => `${BRANCH_API_URI}/${branchId}/allEmployees`,
+  SATURDAYS_API_URI: (branchId: string) => `${BRANCH_API_URI}/${branchId}/saturdays`
 };

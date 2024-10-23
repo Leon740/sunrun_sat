@@ -18,12 +18,12 @@ export default function ManagerProfile() {
     <form className="w-full flex flex-col gap-32">
       <Avatar name={name} isEditable={false} />
 
-      <Group name={'employeeId'}>
-        <Input id={'employeeId'} value={manager.employeeId} isEditable={false} />
+      <Group name="employeeId">
+        <Input id="employeeId" value={manager.employeeId} isEditable={false} />
       </Group>
 
-      <Group name={'branch'}>
-        <Input id={'branch'} value={manager.branch} isEditable={false} />
+      <Group name="branch">
+        <Input id="branch" value={manager.branchName} isEditable={false} />
       </Group>
 
       <Crews />

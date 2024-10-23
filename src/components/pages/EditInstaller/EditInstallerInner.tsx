@@ -59,55 +59,61 @@ export function EditInstallerInner({ employee }: IEditInstallerInnerProps) {
     crew: crewOptionSt.label.split(' - ')[0]
   };
 
-  const queryUrl = `${APIS.EMPLOYEE_API_URI}/${employee._id}`;
+  const queryUrl = `${APIS.EMPLOYEE_API_URI(employee.branchId)}/${employee._id}`;
 
   // handleUpdateButtonOnClick
-  const { status: updateStatus, triggerRequest: handleUpdateButtonOnClick } = useAxios({
-    query: 'put',
-    url: queryUrl,
-    body: newEmployee
-  });
+  const { status: updateEmployeeStatus, triggerRequest: handleUpdateEmployeeButtonOnClick } =
+    useAxios({
+      query: 'put',
+      url: queryUrl,
+      body: newEmployee
+    });
 
   // handleDeleteButtonOnClick
-  const { status: deleteStatus, triggerRequest: handleDeleteButtonOnClick } = useAxios({
-    query: 'delete',
-    url: queryUrl
-  });
+  const { status: deleteEmployeeStatus, triggerRequest: handleDeleteEmployeeButtonOnClick } =
+    useAxios({
+      query: 'delete',
+      url: queryUrl
+    });
 
   return (
     <form className="w-full flex flex-col gap-32">
       <Avatar name={nameSt} handleNameOnChange={handleNameOnChange} isEditable />
 
-      <Group name={'employeeId'}>
+      <Group name="employeeId">
         <Input
-          id={'employeeId'}
+          id="employeeId"
           value={employeeIdSt}
           handleOnChange={handleEmployeeIdOnChange}
           isEditable
         />
       </Group>
 
-      <Group name={'position'}>
+      <Group name="position">
         <PositionSelect
           isEditable
-          activePosition={positionOptionSt}
-          setActivePosition={setPositionOptionSt}
+          activePositionOption={positionOptionSt}
+          setActivePositionOption={setPositionOptionSt}
         />
       </Group>
 
-      <Group name={'crew'}>
-        <CrewSelect isEditable activeCrew={crewOptionSt} setActiveCrew={setCrewOptionSt} />
+      <Group name="crew">
+        <CrewSelect
+          isEditable
+          activeCrewOption={crewOptionSt}
+          setActiveCrewOption={setCrewOptionSt}
+        />
       </Group>
 
       <Status
-        status={updateStatus}
+        status={updateEmployeeStatus}
         errorMessage="Error updating Employee"
         successMessage="Employee was successfully updated"
         className="mt-32"
       />
 
       <Status
-        status={deleteStatus}
+        status={deleteEmployeeStatus}
         errorMessage="Error deleting Employee"
         successMessage="Employee was successfully deleted"
         className="mt-32"
@@ -118,7 +124,7 @@ export function EditInstallerInner({ employee }: IEditInstallerInnerProps) {
           type="submit"
           ariaLabel="Update Employee"
           bg="bg-green"
-          handleOnClick={handleUpdateButtonOnClick}
+          handleOnClick={handleUpdateEmployeeButtonOnClick}
           icon="done"
           label="Update"
         />
@@ -127,7 +133,7 @@ export function EditInstallerInner({ employee }: IEditInstallerInnerProps) {
           type="submit"
           ariaLabel="Delete Employee"
           bg="bg-red"
-          handleOnClick={handleDeleteButtonOnClick}
+          handleOnClick={handleDeleteEmployeeButtonOnClick}
           icon="delete"
           label="Delete"
         />

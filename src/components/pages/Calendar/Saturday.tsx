@@ -1,16 +1,21 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { Group, Label } from '@/components/form';
-import { APIS, IPosition } from '@/constants';
-import { useAxios } from 'src/hooks';
+import { IPosition } from '@/constants';
 import { IEmployee, IEmployeesHashTable, ISaturday, TEmployeePosition } from 'src/types';
 import { POSITIONS } from '@/constants';
 import { RadioGroup, TRadio } from './RadioGroup';
 
-interface IEmployeePositionListProps {
+const getDaysDifference = (date1: Date, date2: Date): number => {
+  const diffInTime = Math.abs(date2.getTime() - date1.getTime());
+  const diffInDays = Math.ceil(diffInTime / (1000 * 60 * 60 * 24));
+  return diffInDays;
+};
+
+interface IEmployeePositionUlProps {
   children: ReactNode;
 }
 
-function EmployeePositionUl({ children }: IEmployeePositionListProps) {
+function EmployeePositionUl({ children }: IEmployeePositionUlProps) {
   return children ? <ul className="flex flex-row flex-wrap gap-16">{children}</ul> : null;
 }
 
@@ -27,13 +32,8 @@ function EmployeePositionLi({ children, color }: IEmployeePositionLiProps) {
   );
 }
 
-const getDaysDifference = (date1: Date, date2: Date): number => {
-  const diffInTime = Math.abs(date2.getTime() - date1.getTime());
-  const diffInDays = Math.ceil(diffInTime / (1000 * 60 * 60 * 24));
-  return diffInDays;
-};
-
 interface ISaturdayProps extends ISaturday {
+  saturdayOnChange: (saturday: ISaturday) => void;
   activeEmployee: IEmployee;
   allEmployees: IEmployeesHashTable['allEmployees'];
   initialCrews: Set<IEmployee['crew']>;
@@ -41,10 +41,10 @@ interface ISaturdayProps extends ISaturday {
 }
 
 export function Saturday({
-  _id: saturdayId,
-  name: saturdayName,
-  date: saturdayDate,
-  employees: saturdayEmployees,
+  name,
+  date,
+  employees,
+  saturdayOnChange,
   activeEmployee,
   allEmployees,
   initialCrews,
@@ -52,7 +52,7 @@ export function Saturday({
 }: ISaturdayProps) {
   // RadioGroupOnChange
   // employeesIdsSet
-  const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(saturdayEmployees));
+  const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(employees));
 
   const [activeRadioSt, setActiveRadioSt] = useState<TRadio>(
     employeesIdsSet.has(activeEmployee._id) ? 'Yes' : 'No'
@@ -61,28 +61,27 @@ export function Saturday({
   useEffect(() => {
     setEmployeesIdsSet((prevEmployeesIdsSet) => {
       const newEmployeesIdsSet = new Set(prevEmployeesIdsSet);
-
       if (activeRadioSt === 'Yes') {
         newEmployeesIdsSet.add(activeEmployee._id);
       } else {
         newEmployeesIdsSet.delete(activeEmployee._id);
       }
-
       return newEmployeesIdsSet;
     });
   }, [activeRadioSt]);
 
-  // putSaturday
-  const { triggerRequest: putSaturday } = useAxios<ISaturday>({
-    query: 'put',
-    url: `${APIS.SATURDAY_API_URI}/${saturdayId}`
-  });
-
   const employeesIdsArray = Array.from(employeesIdsSet);
 
   useEffect(() => {
-    putSaturday({ reqBody: { name: saturdayName, employees: employeesIdsArray } });
-  }, [employeesIdsSet]);
+    if (employeesIdsArray.length !== employees.length) {
+      saturdayOnChange({ name, date, employees: employeesIdsArray });
+    }
+  }, [employeesIdsArray]);
+
+  // disabledVote
+  const today = new Date();
+  const [year, month, day] = date.split('-').map(Number);
+  const isDisabled = getDaysDifference(today, new Date(year, month - 1, day)) < 2;
 
   // sunrunnersComingIn
   // crews
@@ -135,20 +134,13 @@ export function Saturday({
     }
   });
 
-  // disabledVote
-  const today = new Date();
-  const [year, month, day] = saturdayDate.split('-').map(Number);
-  // new Date(date) will result to previous month, so array destructuring is really needed
-  const newSaturdayDate = new Date(year, month, day);
-  const isDisabled = getDaysDifference(today, newSaturdayDate) < 2;
-
   // keys
-  const keyBase = `${saturdayDate}_${saturdayId}`;
+  const keyBase = date;
 
   return (
-    <section className="flex flex-col gap-32" aria-label={saturdayName}>
-      <h2 aria-label={saturdayName} className="flex justify-center">
-        <Label name={saturdayName} text="text-20" />
+    <section className="flex flex-col gap-32" aria-label={name}>
+      <h2 aria-label={name} className="flex justify-center">
+        <Label name={name} text="text-20" />
       </h2>
 
       {!isManager && (

@@ -24,6 +24,7 @@ function App() {
                 <div className="flex flex-col grow max-w-[768px] w-full">
                   <BrowserRouter>
                     <Header />
+
                     <main className="flex flex-col grow">
                       <div className="container flex grow">
                         <Router />

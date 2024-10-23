@@ -1,4 +1,5 @@
+import { IBranch, TBranchShort } from './Branch';
 import { IEmployee, TEmployeePosition, IEmployeesHashTable } from './Employee';
-import { ISaturday, ISaturdayHashTable } from './Saturday';
+import { ISaturday } from './Saturday';
 
-export type { IEmployee, TEmployeePosition, IEmployeesHashTable, ISaturday, ISaturdayHashTable };
+export type { IBranch, TBranchShort, IEmployee, TEmployeePosition, IEmployeesHashTable, ISaturday };

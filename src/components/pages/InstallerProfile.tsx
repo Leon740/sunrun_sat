@@ -11,7 +11,7 @@ export default function InstallerProfile() {
   const { employee, setEmployee } = useEmployeeContext();
 
   // const ALL_FIELDS = Object.keys(employee);
-  const FIELDS: Array<keyof IEmployee> = ['branch', 'employeeId'];
+  const FIELDS: Array<keyof IEmployee> = ['employeeId', '_id'];
 
   // name
   const { firstname, lastname } = employee;
@@ -30,14 +30,14 @@ export default function InstallerProfile() {
 
   // position
   const { position } = employee;
-  const activePosition = {
+  const activePositionOption = {
     label: position,
     value: position
   };
 
   // crew
   const { crew } = employee;
-  const activeCrew = {
+  const activeCrewOption = {
     label: crew,
     value: crew
   };
@@ -48,35 +48,40 @@ export default function InstallerProfile() {
     nickname: nicknameSt
   };
 
-  // handleUpdateButtonOnClick
-  const { status, triggerRequest: handleUpdateButtonOnClick } = useAxios<IEmployee>({
-    query: 'put',
-    url: `${APIS.EMPLOYEE_API_URI}/${employee._id}`,
-    body: newEmployee,
-    onSuccess: (data) => {
-      setEmployee(data);
-    }
-  });
+  // handleUpdateEmployeeButtonOnClick
+  const { status: updateEmployeeStatus, triggerRequest: handleUpdateEmployeeButtonOnClick } =
+    useAxios<IEmployee>({
+      query: 'put',
+      url: `${APIS.EMPLOYEE_API_URI(employee.branchId)}/${employee._id}`,
+      body: newEmployee,
+      onSuccess: (data) => {
+        setEmployee(data);
+      }
+    });
 
   return (
     <form className="w-full flex flex-col gap-32">
       <Avatar name={name} isEditable={false} />
 
-      <Group name={'nickname'}>
+      <Group name="nickname">
         <Input
-          id={'nickname'}
+          id="nickname"
           value={nicknameSt}
           handleOnChange={handleNicknameOnChange}
           isEditable
         />
       </Group>
 
-      <Group name={'position'}>
-        <PositionSelect activePosition={activePosition} isEditable={false} />
+      <Group name="position">
+        <PositionSelect activePositionOption={activePositionOption} isEditable={false} />
       </Group>
 
-      <Group name={'crew'}>
-        <CrewSelect activeCrew={activeCrew} isEditable={false} />
+      <Group name="crew">
+        <CrewSelect activeCrewOption={activeCrewOption} isEditable={false} />
+      </Group>
+
+      <Group name="branch">
+        <Input id="branch" value={employee.branchName} isEditable={false} />
       </Group>
 
       {FIELDS.map((field) => (
@@ -86,7 +91,7 @@ export default function InstallerProfile() {
       ))}
 
       <Status
-        status={status}
+        status={updateEmployeeStatus}
         errorMessage="Error updating Employee"
         successMessage="Employee was successfully updated"
         className="mt-32"
@@ -94,10 +99,10 @@ export default function InstallerProfile() {
 
       <FormButton
         type="submit"
-        ariaLabel="Update my data"
+        ariaLabel="Update"
         bg="bg-white"
         className="mt-32"
-        handleOnClick={handleUpdateButtonOnClick}
+        handleOnClick={handleUpdateEmployeeButtonOnClick}
         icon="done"
         label="Update"
       />

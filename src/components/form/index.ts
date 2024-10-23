@@ -5,7 +5,7 @@ import { Radio } from './Radio';
 import { Button } from './Button';
 import { FormButton } from './FormButton';
 import { Status } from './Status';
-import { Select, SelectOption, TOption } from './Select';
+import { Select, SelectOption, TOption, SelectInnerOption } from './Select';
 import { PositionSelect } from './PositionSelect';
 import { CrewSelect } from './CrewSelect';
 export {
@@ -19,6 +19,7 @@ export {
   Select,
   SelectOption,
   type TOption,
+  SelectInnerOption,
   PositionSelect,
   CrewSelect
 };

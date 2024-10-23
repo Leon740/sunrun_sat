@@ -60,18 +60,20 @@ export default function CreateInstaller() {
     employeeId: employeeIdSt,
     position: positionOptionSt.value as TEmployeePosition,
     crew: crewOptionSt.label.split(' - ')[0],
-    branch: manager.branch
+    branchId: manager.branchId,
+    branchName: manager.branchName
   };
 
-  // handleCreateButtonOnClick
-  const { status, triggerRequest: handleCreateButtonOnClick } = useAxios<IEmployee>({
-    query: 'post',
-    url: APIS.EMPLOYEE_API_URI,
-    body: newEmployee,
-    onSuccess: (data) => {
-      setIdSt(data._id);
-    }
-  });
+  // handleCreateEmployeeButtonOnClick
+  const { status: createEmployeeStatus, triggerRequest: handleCreateEmployeeButtonOnClick } =
+    useAxios<IEmployee>({
+      query: 'post',
+      url: APIS.EMPLOYEE_API_URI(manager.branchId),
+      body: newEmployee,
+      onSuccess: (data) => {
+        setIdSt(data._id);
+      }
+    });
 
   return (
     <form className="w-full flex flex-col gap-32">
@@ -89,17 +91,21 @@ export default function CreateInstaller() {
       <Group name={'position'}>
         <PositionSelect
           isEditable
-          activePosition={positionOptionSt}
-          setActivePosition={setPositionOptionSt}
+          activePositionOption={positionOptionSt}
+          setActivePositionOption={setPositionOptionSt}
         />
       </Group>
 
       <Group name={'crew'}>
-        <CrewSelect isEditable activeCrew={crewOptionSt} setActiveCrew={setCrewOptionSt} />
+        <CrewSelect
+          isEditable
+          activeCrewOption={crewOptionSt}
+          setActiveCrewOption={setCrewOptionSt}
+        />
       </Group>
 
       <Status
-        status={status}
+        status={createEmployeeStatus}
         errorMessage="Error creating Employee"
         successMessage={`Employee was successfully created. <br /> Copy this id and share it with the employee to SignIn. <br /> ${idSt}`}
         className="mt-32"
@@ -107,10 +113,10 @@ export default function CreateInstaller() {
 
       <FormButton
         type="submit"
-        ariaLabel="Create Employee"
+        ariaLabel="Create"
         bg="bg-white"
         className="mt-32"
-        handleOnClick={handleCreateButtonOnClick}
+        handleOnClick={handleCreateEmployeeButtonOnClick}
         icon="done"
         label="Create"
       />

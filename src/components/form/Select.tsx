@@ -29,6 +29,21 @@ export const SelectContext = createContext<ISelectContext>({
   setActiveOption: () => {}
 });
 
+interface ISelectInnerOptionProps {
+  label: string;
+  className: string;
+}
+
+export function SelectInnerOption({ label, className }: ISelectInnerOptionProps) {
+  return (
+    <div
+      className={`w-full cursor-pointer font-roobert_regular text-16 text-dark_navy text-left py-8 px-16 ease-in-out duration-300 ${className}`}
+    >
+      {label}
+    </div>
+  );
+}
+
 interface ISelectOptionProps {
   children: ReactNode;
   option: TOption;
@@ -70,7 +85,7 @@ interface ISelectProps {
   setActiveOption: (option: TOption) => void;
   renderActiveOption: (activeOption: TOption) => ReactNode;
   renderOptions: (option: TOptions) => ReactNode;
-  activeMaxHeightClassName: string;
+  activeMaxHeightClassName?: string;
 }
 
 export function Select({
@@ -81,7 +96,7 @@ export function Select({
   setActiveOption,
   renderActiveOption,
   renderOptions,
-  activeMaxHeightClassName
+  activeMaxHeightClassName = 'max-h-[256px]'
 }: ISelectProps) {
   const optionsLength = options?.length || 0;
 
@@ -109,7 +124,7 @@ export function Select({
       selectRef.current?.classList.replace('overflow-hidden', 'overflow-auto');
     }
     selectRef.current?.classList.add('z-30');
-    selectRef.current?.classList.add('border-light_navy');
+    selectRef.current?.classList.replace('border-transparent', 'border-light_navy');
   };
   const handleSelectOnBlur = () => {
     setTimeout(() => {
@@ -118,7 +133,7 @@ export function Select({
         selectRef.current?.classList.replace('overflow-auto', 'overflow-hidden');
       }
       selectRef.current?.classList.remove('z-30');
-      selectRef.current?.classList.remove('border-light_navy');
+      selectRef.current?.classList.replace('border-light_navy', 'border-transparent');
     }, 100);
   };
 
@@ -137,7 +152,7 @@ export function Select({
         rounded-8 border-2 border-transparent ease-in-out duration-300 max-h-full overflow-hidden"
         >
           <SelectOption
-            key={`SelectOption_${activeOptionSt.value}`}
+            key={`${activeOptionSt.label}_${activeOptionSt.value}_SelectOptionActive`}
             option={activeOptionSt}
             handleOnFocus={() => isEditable && handleSelectOnFocus()}
             handleOnBlur={() => isEditable && handleSelectOnBlur()}

@@ -1,27 +1,12 @@
 import { IEmployeesHashTable } from '@/types';
-import { Select, SelectOption, TOption } from './Select';
+import { Select, SelectOption, TOption, SelectInnerOption } from './Select';
 import { Status } from './Status';
 import { useEmployeeContext } from 'src/contexts';
 
-interface ISelectInnerOptionProps {
-  label: string;
-  className: string;
-}
-
-function SelectInnerOption({ label, className }: ISelectInnerOptionProps) {
-  return (
-    <div
-      className={`cursor-pointer w-full text-16 text-dark_navy font-roobert_regular text-left py-8 px-16 bg-sky_blue border-light_navy ease-in-out duration-300 ${className}`}
-    >
-      {label}
-    </div>
-  );
-}
-
 interface ICrewSelectProps {
   isEditable?: boolean;
-  activeCrew: TOption;
-  setActiveCrew?: (newCrew: TOption) => void;
+  activeCrewOption: TOption;
+  setActiveCrewOption?: (newCrew: TOption) => void;
 }
 
 interface ICrewSelectInnerProps extends ICrewSelectProps {
@@ -31,8 +16,8 @@ interface ICrewSelectInnerProps extends ICrewSelectProps {
 function CrewSelectInner({
   employeesHashTable,
   isEditable = false,
-  activeCrew,
-  setActiveCrew = () => {}
+  activeCrewOption,
+  setActiveCrewOption = () => {}
 }: ICrewSelectInnerProps) {
   const { allEmployees, employeesByPosition } = employeesHashTable;
 
@@ -53,34 +38,40 @@ function CrewSelectInner({
     <Select
       isEditable={isEditable}
       options={crewsOptions}
-      defaultOption={activeCrew || { label: 'Select Crew', value: 'Select Crew' }}
-      setActiveOption={setActiveCrew}
+      defaultOption={activeCrewOption || { label: 'Select Crew', value: 'Select Crew' }}
+      setActiveOption={setActiveCrewOption}
       renderActiveOption={(activeOption) => (
-        <SelectInnerOption label={activeOption.label} className="border-t-0" />
+        <SelectInnerOption label={activeOption.label} className="bg-sky_blue border-t-0" />
       )}
       renderOptions={(options) =>
         options.map((option) => (
           <SelectOption key={`CrewSelectOption_${option.value}`} option={option}>
-            <SelectInnerOption label={option.label} className="border-t-2 hover:bg-light_navy" />
+            <SelectInnerOption
+              label={option.label}
+              className="bg-sky_blue border-t-2 border-light_navy hover:bg-light_navy"
+            />
           </SelectOption>
         ))
       }
-      activeMaxHeightClassName="max-h-[256px]"
     />
   );
 }
 
-export function CrewSelect({ isEditable, activeCrew, setActiveCrew = () => {} }: ICrewSelectProps) {
-  const { employeesHashTable, status } = useEmployeeContext();
+export function CrewSelect({
+  isEditable,
+  activeCrewOption,
+  setActiveCrewOption = () => {}
+}: ICrewSelectProps) {
+  const { employeesHashTable, employeesHashTableStatus } = useEmployeeContext();
 
   return employeesHashTable ? (
     <CrewSelectInner
       employeesHashTable={employeesHashTable}
       isEditable={isEditable}
-      activeCrew={activeCrew}
-      setActiveCrew={setActiveCrew}
+      activeCrewOption={activeCrewOption}
+      setActiveCrewOption={setActiveCrewOption}
     />
   ) : (
-    <Status status={status} errorMessage="Error fetching Crews" />
+    <Status status={employeesHashTableStatus} errorMessage="Error fetching Crews" />
   );
 }

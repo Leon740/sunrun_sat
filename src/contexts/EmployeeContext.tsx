@@ -7,7 +7,7 @@ interface IEmployeeContext {
   employee: IEmployee;
   setEmployee: (employee: IEmployee) => void;
   employeesHashTable: IEmployeesHashTable | undefined;
-  status: number;
+  employeesHashTableStatus: number;
   isManager: boolean;
 }
 
@@ -35,7 +35,8 @@ export function EmployeeProvider({ children }: IEmployeeProviderProps) {
     lastname: '',
     nickname: '',
     position: 'Installer',
-    branch: '',
+    branchName: '',
+    branchId: '',
     crew: '',
     employeeId: ''
   });
@@ -48,17 +49,20 @@ export function EmployeeProvider({ children }: IEmployeeProviderProps) {
   const [fetchedEmployeesHashTableSt, setFetchedEmployeesHashTableSt] =
     useState<IEmployeesHashTable>();
 
-  const { status, triggerRequest: getEmployees } = useAxios<IEmployeesHashTable>({
-    query: 'get',
-    url: APIS.EMPLOYEE_API_URI,
-    onSuccess: (data) => {
-      setFetchedEmployeesHashTableSt(data);
-    }
-  });
+  const { status: getEmployeesHashTableStatus, triggerRequest: getEmployeesHashTable } =
+    useAxios<IEmployeesHashTable>({
+      query: 'get',
+      url: APIS.ALL_EMPLOYEES_API_URI(employeeStorageSt.branchId),
+      onSuccess: (data) => {
+        setFetchedEmployeesHashTableSt(data);
+      }
+    });
 
   useEffect(() => {
-    getEmployees();
-  }, []);
+    if (employeeStorageSt.branchId) {
+      getEmployeesHashTable();
+    }
+  }, [employeeStorageSt]);
 
   return (
     <EmployeeContext.Provider
@@ -66,7 +70,7 @@ export function EmployeeProvider({ children }: IEmployeeProviderProps) {
         employee: employeeStorageSt,
         setEmployee,
         employeesHashTable: fetchedEmployeesHashTableSt,
-        status,
+        employeesHashTableStatus: getEmployeesHashTableStatus,
         isManager: employeeStorageSt.position === 'Manager'
       }}
     >

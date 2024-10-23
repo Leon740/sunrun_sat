@@ -1,7 +1,7 @@
-export type TIcons = 'arrow' | 'calendar' | 'delete' | 'done' | 'edit' | 'profile';
+export type TIcon = 'arrow' | 'calendar' | 'delete' | 'done' | 'edit' | 'profile';
 
 interface IIconProps {
-  icon: TIcons;
+  icon: TIcon;
   size?: string;
   className?: string;
 }

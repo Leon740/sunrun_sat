@@ -5,7 +5,8 @@ export interface IEmployee {
   firstname: string;
   lastname: string;
   nickname: string;
-  branch: string;
+  branchId: string;
+  branchName: string;
   crew: string;
   position: 'Manager' | 'Foreman' | 'Lead' | 'Installer' | 'Electrician';
   employeeId: string;
