@@ -286,6 +286,15 @@ router.put('/:id/saturdays', updateSaturdays);
 
 # Front-end
 
+## 0_Testing
+
+- Manager credentials:
+  - Branch: NJ South,
+  - EmployeeId: 67195d1adc38b6cb7a52ea17
+- Employee credentials:
+  - Branch: NJ South,
+  - EmployeeId: 67195e52dc38b6cb7a52ea29
+
 ## 1_SignIn
 
 /signIn
