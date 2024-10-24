@@ -1,1 +1,0 @@
-const l=[{title:"Foreman",color:"bg-orange"},{title:"Lead",color:"bg-yellow"},{title:"Installer",color:"bg-sky_blue"},{title:"Electrician",color:"bg-light_navy"}],e={Foreman:"bg-orange",Lead:"bg-yellow",Installer:"bg-sky_blue",Electrician:"bg-light_navy"};export{l as P,e as a};
