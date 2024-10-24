@@ -53,7 +53,7 @@ export function Saturday({
 }: ISaturdayProps) {
   // RadioGroupOnChange
   // employeesIdsSet
-  const [employeesIdsSet, setEmployeesIdsSet] = useState(new Set(employees));
+  const [employeesIdsSet, setEmployeesIdsSet] = useState(() => new Set(employees));
 
   const [activeRadioSt, setActiveRadioSt] = useState<TRadio>(
     employeesIdsSet.has(activeEmployee._id) ? 'Yes' : 'No'
