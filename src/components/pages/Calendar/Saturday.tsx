@@ -4,6 +4,7 @@ import { IPosition } from '@/constants';
 import { IEmployee, IEmployeesHashTable, ISaturday, TEmployeePosition } from 'src/types';
 import { POSITIONS } from '@/constants';
 import { RadioGroup, TRadio } from './RadioGroup';
+import { Note } from './Note';
 
 const getDaysDifference = (date1: Date, date2: Date): number => {
   const diffInTime = Math.abs(date2.getTime() - date1.getTime());
@@ -142,6 +143,8 @@ export function Saturday({
       <h2 aria-label={name} className="flex justify-center">
         <Label name={name} text="text-20" />
       </h2>
+
+      {isManager && employeesIdsArray.length === 0 && <Note label={'No votes yet.'} />}
 
       {!isManager && (
         <RadioGroup

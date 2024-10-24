@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Radio } from '@/components/form';
+import { Note } from './Note';
 
 export type TRadio = 'Yes' | 'No';
 
@@ -44,11 +45,7 @@ export function RadioGroup({
         />
       </div>
 
-      {disabled && (
-        <p className="font-roobert_regular text-16 text-red text-center">
-          Can't update your vote since it's less than 1 day notice.
-        </p>
-      )}
+      {disabled && <Note label={"Can't update your vote since it's less than 1 day notice."} />}
 
       {activeRadioSt && (
         <div
