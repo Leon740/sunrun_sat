@@ -11,7 +11,7 @@ interface ErrorBoundaryStateI {
 
 function ErrorBoundaryFallback({ errorMsg }: ErrorBoundaryStateI) {
   console.error(errorMsg);
-  return <Fallback gradient="from-light_navy to-white" textColor="text-white" textLabel="Error" />;
+  return <Fallback isLoading={true} errorLabel={errorMsg} />;
 }
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryPropsI, ErrorBoundaryStateI> {
