@@ -18,7 +18,7 @@ function App() {
         <Loader>
           <ThemeProvider>
             <EmployeeProvider>
-              <div className="min-h-screen flex flex-col items-center">
+              <div className="min-h-dvh flex flex-col items-center">
                 <Background />
 
                 <div className="flex flex-col grow max-w-[768px] w-full">
