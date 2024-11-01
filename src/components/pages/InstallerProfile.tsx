@@ -22,7 +22,8 @@ export default function InstallerProfile() {
 
   // nickname
   type TNickname = IEmployee['nickname'];
-  const [nicknameSt, setNicknameSt] = useState<TNickname>(employee.nickname || firstname);
+  const initialNickname = employee.nickname;
+  const [nicknameSt, setNicknameSt] = useState<TNickname>(initialNickname || firstname);
 
   const handleNicknameOnChange = (newNickname: TNickname) => {
     setNicknameSt(newNickname);
@@ -97,15 +98,17 @@ export default function InstallerProfile() {
         className="mt-32"
       />
 
-      <FormButton
-        type="submit"
-        ariaLabel="Update"
-        bg="bg-white"
-        className="mt-32"
-        handleOnClick={handleUpdateEmployeeButtonOnClick}
-        icon="done"
-        label="Update"
-      />
+      {nicknameSt !== initialNickname && (
+        <FormButton
+          type="submit"
+          ariaLabel="Update"
+          bg="bg-green"
+          className="mt-32"
+          handleOnClick={handleUpdateEmployeeButtonOnClick}
+          icon="done"
+          label="Update"
+        />
+      )}
     </form>
   );
 }
